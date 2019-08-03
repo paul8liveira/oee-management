@@ -150,11 +150,12 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
           }          
         }
       ],
-      "categoryField": "pause_name_short",
+      "categoryField": "pause_name",
       "categoryAxis": {
         "gridPosition": "start",
         "axisAlpha": 0,
-        "tickLength": 0,         
+        "tickLength": 0,   
+        "labelRotation": 45      
       }
     };
   }

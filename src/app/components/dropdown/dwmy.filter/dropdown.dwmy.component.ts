@@ -24,6 +24,10 @@ export class DropdownDWMYComponent implements OnInit {
   load() {
     this.items = [
       {
+        id: 4,
+        name: 'Dia anterior',
+      },      
+      {
         id: 3,
         name: 'Dia atual',
       },      
@@ -40,7 +44,7 @@ export class DropdownDWMYComponent implements OnInit {
         name: 'Ano atual',
       },                 
     ];    
-    this.selectedFilter = this.items[0].id;
+    this.selectedFilter = this.items[1].id;
   }
 
   public refreshValue(value:any) {
