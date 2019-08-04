@@ -122,11 +122,12 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
           "type": "column",
           "valueField": "pause",
           "fillColors": "#1a3a5a",
-          "balloonFunction": function(graphDataItem, graph) {            
+          "balloonFunction": function(graphDataItem, graph) {
             let text = `
               Tempo: ${graphDataItem.dataContext.pause_in_time}
               <br>Pausa: ${graphDataItem.dataContext.pause_name}
               <br>Tipo: ${graphDataItem.dataContext.pause_type}
+              <br>Total: ${graphDataItem.dataContext.count}
             `;                
             return text;
           }           
@@ -150,7 +151,7 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
           }          
         }
       ],
-      "categoryField": "pause_name",
+      "categoryField": "pause_name_count",
       "categoryAxis": {
         "gridPosition": "start",
         "axisAlpha": 0,
