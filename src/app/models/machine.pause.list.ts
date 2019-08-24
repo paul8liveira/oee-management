@@ -15,6 +15,7 @@ class Pauses {
   pause_type: string;
   type: string;
   pause_in_minutes: number;
+  incidents: number;
 }
 
 class PauseGrouped {

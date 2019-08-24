@@ -302,4 +302,9 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
       console.log(error);
     });     
   }  
+
+  get pauseIncidests() {
+    return this.pauses.map(m => m.incidents)
+      .reduce((incidents, incident) => incidents + incident, 0);
+  }
 }
