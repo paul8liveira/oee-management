@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UserService } from './services/user/user.service';
+import { SponsorModule } from './components/sponsor/sponsor.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserService } from './services/user/user.service';
     GraphPauseModule,
     UserModule,
     MachineProductionModule,
+    SponsorModule,
     ToastModule.forRoot()
   ],
   providers: [

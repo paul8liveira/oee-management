@@ -69,5 +69,8 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
     this.selectedChannelId = value.id;
     let channel = this.items.filter(f => f.id == this.selectedChannelId);    
     this.changeEvent.emit(channel[0]);
+
+    //guarda o canal no localstorage para ser utilizado em outros componentes
+    localStorage.setItem('channelId', channel[0].id);
   }    
 }

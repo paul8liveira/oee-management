@@ -61,4 +61,14 @@ export const environment = {
   machineShiftURL : `${serverURL}machineshift`,
   machineDeleteShiftURL : `${serverURL}machineshift/delete`,
   machineShiftOEEURL: `${serverURL}machineshift/oee/:channelId/:machineCode/:dateIni/:dateFin`,
+  //sponsor
+  sponsorListURL: `${serverURL}sponsor`,
+  sponsorAddURL: `${serverURL}sponsor`,
+  sponsorUpdateURL: `${serverURL}sponsor/update`,
+  sponsorDeleteURL: `${serverURL}sponsor/delete`,
+  //alert
+  alertListURL: `${serverURL}alert`,
+  alertAddURL: `${serverURL}alert`,
+  alertUpdateURL: `${serverURL}alert/update`,
+  alertDeleteURL: `${serverURL}alert/delete`,    
 };
