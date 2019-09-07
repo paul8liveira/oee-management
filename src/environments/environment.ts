@@ -72,7 +72,7 @@ export const environment = {
   sponsorUpdateURL: `${serverURL}sponsor/update`,
   sponsorDeleteURL: `${serverURL}sponsor/delete`,
   //alert
-  alertListURL: `${serverURL}alert`,
+  alertListURL: `${serverURL}alert/channel/:channelId`,
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
   alertDeleteURL: `${serverURL}alert/delete`,      

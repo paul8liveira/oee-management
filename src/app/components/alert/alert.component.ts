@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../base.component';
-import { Sponsor } from '../../models/sponsor';
-import { SponsorService } from '../../services/sponsor/sponsor.service';
+import { Alert } from '../../models/alert';
+import { AlertService } from '../../services/alert/alert.service';
 
 @Component({
-  selector: 'app-sponsor',
-  templateUrl: './sponsor.component.html',
-  styleUrls: ['./sponsor.component.css']
+  selector: 'app-alert',
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.css']
 })
-export class SponsorComponent extends BaseComponent implements OnInit {
-  sponsor: Sponsor = new Sponsor();
+export class AlertComponent extends BaseComponent implements OnInit {
+  alert: Alert = new Alert();
   gridApi;
   gridColumnApi;
   columnDefs;
@@ -18,23 +18,30 @@ export class SponsorComponent extends BaseComponent implements OnInit {
   rowSelection = "multiple";
   editType = "fullRow";
   context; 
+  channelId: number;
 
-  constructor(private sponsorService: SponsorService, 
+  constructor(private alertService: AlertService, 
               public toastr: ToastsManager, 
               vcr: ViewContainerRef) {
     super();
+    this.channelId = parseInt(localStorage.getItem('channelId'));
     this.toastr.setRootViewContainerRef(vcr);     
     this.columnDefs = [
       {
-        headerName: "Nome",
+        headerName: "Responsável",
         field: "sponsor_name",
-        editable: true,
+        editable: false,
       },   
       {
-        headerName: "Email",
-        field: "email",
-        editable: true,
-      }                 
+        headerName: "Motivo da pausa",
+        field: "pause_reason_name",
+        editable: false,
+      },
+      {
+        headerName: "Tempo da pausa",
+        field: "pause_time",
+        editable: false,
+      }                       
     ];    
     this.context = { componentParent: this };
     
@@ -47,7 +54,7 @@ export class SponsorComponent extends BaseComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.sponsorService.list()
+    this.alertService.list()
     .subscribe(
       result => {
         params.api.setRowData(result);
@@ -61,24 +68,33 @@ export class SponsorComponent extends BaseComponent implements OnInit {
     this.update(event.data);
   } 
 
+  setPauseReason($event) {
+    this.alert.pause_reason_id = $event.id;
+  }  
+  setSponsor($event) {
+    this.alert.sponsor_id = $event.sponsor_id;
+  }    
+
   add(event) {
     event.preventDefault();
+
+    console.log(this.alert)
     
-    this.sponsorService.add(this.sponsor)
+    this.alertService.add(this.alert)
     .subscribe(
       result => {
-        const sponsor: Sponsor = {...result};
-        this.gridApi.updateRowData({ add: [sponsor] });
+        const alert: Alert = {...result};
+        this.gridApi.updateRowData({ add: [alert] });
+        this.alert = new Alert();
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
       }
-    );    
-    this.sponsor = new Sponsor();
+    );        
   }
 
-  update(data) {
-    this.sponsorService.update(data)
+  update(data: Alert) {
+    this.alertService.update(data)
     .subscribe(
       result => {},
       error => {
@@ -92,7 +108,7 @@ export class SponsorComponent extends BaseComponent implements OnInit {
     
     if(selectedData.length > 0) {
       selectedData.forEach(row => {
-        this.sponsorService.delete(row)
+        this.alertService.delete(row)
         .subscribe(
           result => {
             this.gridApi.updateRowData({ remove: [row] });

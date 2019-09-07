@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UserService } from './services/user/user.service';
 import { SponsorModule } from './components/sponsor/sponsor.module';
+import { AlertModule } from './components/alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SponsorModule } from './components/sponsor/sponsor.module';
     UserModule,
     MachineProductionModule,
     SponsorModule,
+    AlertModule,
     ToastModule.forRoot()
   ],
   providers: [

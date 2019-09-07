@@ -1,7 +1,7 @@
-<app-nav componentName="Responsáveis pelo alerta"></app-nav>
+<app-nav componentName="Alertas de pausa"></app-nav>
 <div class="container-fluid">
   <div class="row">
-    <app-menu linkActive="sponsor"></app-menu>
+    <app-menu linkActive="alert"></app-menu>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 margin-top-45">
       <div class="row margin-bottom-5px">        
         <div class="col-md-12 order-md-1">
@@ -11,7 +11,7 @@
               <div class="card-header" role="tab" id="headingOne">
                 <h6 class="mb-0">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Adicionar responsável
+                    Adicionar alerta
                   </a>
                 </h6>
               </div>
@@ -23,28 +23,24 @@
                     class="needs-validation">
 
                     <div class="row">
-                      <div class="col-md-6 mb-6">
-                        <label for="sponsor_name">Nome</label>
-                        <input 
-                          name="sponsor_name" 
-                          [(ngModel)]="sponsor.sponsor_name" 
-                          #username="ngModel"
-                          type="text"
-                          class="form-control form-control-no-border"
-                          required autofocus>
+                      <div class="col-md-4 mb-4">
+                        <label for="sponsor_id">Responsável</label>
+                        <dropdown-sponsor (emitChangeEvent)="setSponsor($event)"></dropdown-sponsor>
                       </div>
 
-                      <div class="col-md-6 mb-6">
-                        <label for="email">E-mail</label>
-                        <input 
-                          name="email" 
-                          [(ngModel)]="sponsor.email" 
-                          #companyname="ngModel"
-                          type="text"
-                          class="form-control form-control-no-border"
-                        >
-                      </div>                       
-                    </div>    
+                      <div class="col-md-4 mb-4">
+                        <label for="pause_reason_id">Motivo da pausa</label>
+                        <dropdown-pause-reason 
+                          [channelId]="channelId" 
+                          (emitChangeEvent)="setPauseReason($event)">
+                        </dropdown-pause-reason>
+                      </div>
+                      
+                      <div class="col-md-4 mb-4">
+                        <label for="pause_time">Tempo de pausa</label>
+                        
+                      </div>                      
+                    </div> 
 
                     <div class="row row-vcenter">
                       <div class="col-md-2 mb-3 vcenter">
@@ -59,9 +55,9 @@
                     </div>
 
                     <div 
-                      *ngIf="sponsor.message" 
-                      [ngClass]="(sponsor.error)?'alert alert-danger alert-margin':'alert alert-success alert-margin'">
-                      {{sponsor.message}}
+                      *ngIf="alert.message" 
+                      [ngClass]="(alert.error)?'alert alert-danger alert-margin':'alert alert-success alert-margin'">
+                      {{alert.message}}
                     </div>    
                   </form>                  
                 </div>
@@ -82,7 +78,7 @@
             </button>
           </div>
         </div>  
-      </div>         
+      </div>       
     
       <div class="table-responsive">        
         <ag-grid-angular #agGrid
