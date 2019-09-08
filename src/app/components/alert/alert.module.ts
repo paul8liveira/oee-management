@@ -7,6 +7,7 @@ import { AlertService } from '../../services/alert/alert.service';
 import { AlertComponent } from './alert.component';
 import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pause.reason.module';
 import { DropdownSponsorModule } from '../dropdown/sponsor/dropdown.sponsor.module';
+import { DropdownAlertPauseTimeModule } from '../dropdown/alertPauseTime/dropdown.alertPauseTime.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { DropdownSponsorModule } from '../dropdown/sponsor/dropdown.sponsor.modu
     FormsModule,
     AgGridModule,
     DropdownPauseReasonModule,
-    DropdownSponsorModule
+    DropdownSponsorModule,
+    DropdownAlertPauseTimeModule
   ],
   declarations: [
     AlertComponent

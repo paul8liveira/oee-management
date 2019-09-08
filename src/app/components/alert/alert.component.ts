@@ -74,18 +74,18 @@ export class AlertComponent extends BaseComponent implements OnInit {
   setSponsor($event) {
     this.alert.sponsor_id = $event.sponsor_id;
   }    
+  setAlertPauseTime($event) {
+    this.alert.pause_time = $event;
+  }
 
   add(event) {
     event.preventDefault();
-
-    console.log(this.alert)
     
     this.alertService.add(this.alert)
     .subscribe(
       result => {
         const alert: Alert = {...result};
         this.gridApi.updateRowData({ add: [alert] });
-        this.alert = new Alert();
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });

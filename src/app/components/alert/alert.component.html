@@ -38,7 +38,9 @@
                       
                       <div class="col-md-4 mb-4">
                         <label for="pause_time">Tempo de pausa</label>
-                        
+                        <dropdown-alert-pause-time
+                          (emitChangeEvent)="setAlertPauseTime($event)">
+                        </dropdown-alert-pause-time>
                       </div>                      
                     </div> 
 
