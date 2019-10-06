@@ -1,0 +1,11 @@
+<ng-select
+    [items]="items"
+    bindLabel="name"
+    bindValue="id"
+    placeholder="Selecione uma prioridade"
+    (add)="refreshValue($event)"
+    [(ngModel)]="selectedPriority"
+    [clearable]="false"
+    [ngStyle]="{ 'width': '100%' }">
+</ng-select>
+

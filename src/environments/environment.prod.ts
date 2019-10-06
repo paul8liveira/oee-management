@@ -71,4 +71,22 @@ export const environment = {
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
   alertDeleteURL: `${serverURL}alert/delete`, 
+  //improvement - action
+  actionImprovementListURL: `${serverURL}improvement/action`,
+  actionImprovementAddURL: `${serverURL}improvement/action`,
+  actionImprovementUpdateURL: `${serverURL}improvement/action/update`,
+  actionImprovementDeleteURL: `${serverURL}improvement/action/delete`,
+  //improvement - progress
+  progressImprovementListURL: `${serverURL}improvement/progress/:progress_id`,
+  progressImprovementListActionURL: `${serverURL}improvement/progress/action/:action_id`,
+  progressImprovementListChannelURL: `${serverURL}improvement/progress/channel/:channel_id`,
+  progressImprovementAddURL: `${serverURL}improvement/progress`,
+  progressImprovementUpdateURL: `${serverURL}improvement/progress/update`,
+  progressImprovementDeleteURL: `${serverURL}improvement/progress/delete`,
+  //improvement - resume
+  resumeImprovementListAllURL: `${serverURL}improvement/resume/:channel_id`,
+  resumeImprovementListURL: `${serverURL}improvement/resume/:channel_id/:resume_id`,
+  resumeImprovementAddURL: `${serverURL}improvement/resume`,
+  resumeImprovementUpdateURL: `${serverURL}improvement/resume/update`,
+  resumeImprovementDeleteURL: `${serverURL}improvement/resume/delete`,
 };

@@ -99,7 +99,34 @@
       </li>                           
     </ul>
     <!-- alertas de pausa -->
-
+	
+	<!-- Ações de melhoria -->
+    <hr style="margin-top: 0.2rem" />
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted">
+      <span>Ações de melhorias</span>
+    </h6>    
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a [ngClass]="(linkActive=='improvement')?'nav-link active':'nav-link'" [routerLink]="['/improvement']">
+          <i-plus-circle class="feather"></i-plus-circle>
+          Lista de melhorias
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="(linkActive=='improvement/progress')?'nav-link active':'nav-link'" [routerLink]="['/improvement/progress']">
+          <i-plus-circle class="feather"></i-plus-circle>
+          Progresso de melhorias
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="(linkActive=='improvement/resume')?'nav-link active':'nav-link'" [routerLink]="['/improvement/resume']">
+          <i-plus-circle class="feather"></i-plus-circle>
+          Resumos
+        </a>
+      </li>
+    </ul>
+    <!-- Ações de melhoria -->
+	
     <!-- administração -->
     <hr style="margin-top: 0.2rem" />
     <div [ngStyle]="{'display': currentUser.admin == 1 ? 'block' : 'none'}">

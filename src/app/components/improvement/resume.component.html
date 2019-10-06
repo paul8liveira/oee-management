@@ -1,0 +1,145 @@
+<app-nav componentName="Resumos"></app-nav>
+<div class="container-fluid">
+  <div class="row">
+    <app-menu linkActive="improvement/resume"></app-menu>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 margin-top-45">
+      <div class="row margin-bottom-5px">        
+        <div class="col-md-12 order-md-1">
+
+          <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header" role="tab" id="headingOne">
+                <h6 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Adicionar novo item
+                  </a>
+                </h6>
+              </div>
+              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-block padding-10px">
+                  <form 
+                    name="form" 
+                    (ngSubmit)="f.form.valid && add($event)" #f="ngForm" novalidate 
+                    class="needs-validation">
+                    
+                    <div class="row">
+                      <div class="col-md-3 mb-3">
+                          <label for="resume_date">Data do resumo</label>
+                          <input 
+                            name="resume_date" 
+                            [(ngModel)]="resume.resume_date" 
+                            #resume_date="ngModel"
+                            type="date"
+                            class="form-control form-control-no-border"
+                            required autofocus>
+                      </div>
+                      
+                      <div class="col-md-3 mb-3">
+                          <label for="status">Situação</label>
+                          <dropdown-improvement-status (changeEvent)="setStatus($event)"></dropdown-improvement-status>
+                      </div>
+
+                      <div class="col-md-6 mb-6">
+                          <label for="owner">Responsáveis</label>
+                          <input 
+                            name="owner" 
+                            [(ngModel)]="resume.owner" 
+                            #gain="ngModel"
+                            type="text"
+                            class="form-control form-control-no-border"
+                            required autofocus>
+                      </div>
+
+                    </div>
+                    
+                    <div class="row">
+
+                      <div class="col-md-6 mb-6">
+                        <label for="overview">Análise</label>
+                        <textarea 
+                          name="overview" 
+                          [(ngModel)]="resume.overview" 
+                          #overview="ngModel"
+                          rows="5"
+                          class="form-control form-control-no-border"
+                          required autofocus>
+                        </textarea>
+                      </div>
+
+                      <div class="col-md-6 mb-6">
+                        <label for="action">Ações</label>
+                        <textarea
+                          name="action" 
+                          [(ngModel)]="resume.action" 
+                          #action="ngModel"
+                          rows="5"
+                          class="form-control form-control-no-border"
+                          required autofocus>
+                        </textarea>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2 mb-3">
+                        <button
+                          [disabled]="!f.form.valid"
+                          class="btn btn-no-border btn-primary btn-sm btn-block"
+                          type="submit">
+                          Adicionar
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="resume.message" 
+                      [ngClass]="(resume.error)?'alert alert-danger alert-margin':'alert alert-success alert-margin'">
+                      {{resume.message}}
+                    </div>
+                  </form>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-5px" [ngStyle]="{'display': currentUser.admin == 1 ? 'block' : 'none'}">
+        <div class="col-md-12 order-md-1">
+          <div class="col-md-2 float-right margin-bottom-5px">
+            <button 
+              (click)="delete()"
+              class="btn btn-no-border btn-primary btn-sm btn-block" 
+              type="button">
+              Remover selecionada
+            </button>
+          </div>
+        </div>  
+      </div>
+      
+      <div class="table-responsive">        
+        <ag-grid-angular #agGrid
+          style="width: 100%; height: 450px;"
+          id="myGrid"
+          class="ag-theme-balham"
+          [columnDefs]="columnDefs"
+          [enterMovesDownAfterEdit]="true"
+          [enterMovesDown]="true"
+          [animateRows]="true"
+          [rowSelection]="rowSelection"
+          (gridReady)="onGridReady($event)"
+          enableColResize
+          enableSorting
+          enableFilter 
+          [pagination]="true"
+          [paginationPageSize]="paginationPageSize"
+          (cellValueChanged)="onCellValueChanged($event)"
+          [context]="context"
+          [frameworkComponents]="frameworkComponents"
+          [rowHeight]="35"
+        ></ag-grid-angular>
+      </div>
+      
+    </main>
+  </div>
+</div>
