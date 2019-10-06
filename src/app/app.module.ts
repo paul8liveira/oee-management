@@ -23,6 +23,8 @@ import { UserService } from './services/user/user.service';
 import { SponsorModule } from './components/sponsor/sponsor.module';
 import { AlertModule } from './components/alert/alert.module';
 
+import { PauseReasonModule } from './components/pause.reason/pause.reason.module';
+
 @NgModule({
   declarations: [
     BaseComponent,
@@ -41,6 +43,7 @@ import { AlertModule } from './components/alert/alert.module';
     MachineProductionModule,
     SponsorModule,
     AlertModule,
+    PauseReasonModule,
     ToastModule.forRoot()
   ],
   providers: [
