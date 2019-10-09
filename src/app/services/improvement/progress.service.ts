@@ -36,21 +36,7 @@ export class ProgressService extends BaseService {
 
         const channelId = localStorage.getItem('channelId');
 
-        const url = environment.progressImprovementListChannelURL.replace(":channel_id", channelId.toString());
-
-        return this.http.get(url, options)
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));
-    }
-
-    listByAction(action_id: number): Observable<ProgressImprovement[]> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions( {headers: headers}  );
-        
-        const url = environment.progressImprovementListActionURL.replace(":action_id", action_id.toString());
+        const url = environment.progressImprovementListAllURL.replace(":channel_id", channelId.toString());
 
         return this.http.get(url, options)
             .map(res => res.json())

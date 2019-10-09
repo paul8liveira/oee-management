@@ -6,9 +6,13 @@ import { SharedModule } from '../shared/shared.module';
 import { ActionService } from '../../services/improvement/action.service';
 import { ProgressService } from '../../services/improvement/progress.service';
 import { ProgressComponent } from './progress.component';
-
 import { DropdownImprovementStatusModule } from '../dropdown/improvement.status/dropdown.improvement.status.module';
 import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pause.reason.module';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProgressModalComponent } from './modal/progress.modal.component';
+import { ProgressImprovementGridButtonRenderer } from './grid/progress.grid.buttons.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   imports: [
@@ -17,19 +21,25 @@ import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pau
     FormsModule,
     ReactiveFormsModule,
     AgGridModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ ProgressImprovementGridButtonRenderer ]),
     DropdownImprovementStatusModule,
     DropdownPauseReasonModule,
+    ModalModule.forRoot(),
+    AngularFontAwesomeModule,
   ],
   declarations: [
-    ProgressComponent
+    ProgressComponent,
+    ProgressModalComponent,
+    ProgressImprovementGridButtonRenderer,
   ],
-  exports: [ ProgressComponent ],
+  exports: [ 
+    ProgressComponent,
+  ],
   providers: [
-    ActionService,
     ProgressService,
   ],
    entryComponents: [
+    ProgressModalComponent,
   ],     
 })
 export class ProgressModule { }

@@ -23,13 +23,11 @@
                     class="needs-validation">
                     
                     <div class="row">
-                      <div class="col-md-1 mb-1">
+                      <div class="col-md-3 mb-3">
                         <label for="machine_id">Equipamento</label>
                         <dropdown-machine [channelId]="dropdownChannel" (changeEvent)="setMachine($event)"></dropdown-machine>                        
                       </div>
                       
-                      <div class="col-md-2 mb-2"></div>
-
                       <div class="col-md-3 mb-3">
                         <label for="pause_reason_id">Item</label>
                         <dropdown-pause-reason [channelId]="dropdownChannel" (emitChangeEvent)="setPause($event)"></dropdown-pause-reason>    

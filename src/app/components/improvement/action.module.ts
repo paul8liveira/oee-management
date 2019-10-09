@@ -11,7 +11,10 @@ import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pau
 import { DropdownImprovementStatusModule } from '../dropdown/improvement.status/dropdown.improvement.status.module';
 import { DropdownImprovementPriorityModule } from '../dropdown/improvement.priority/dropdown.improvement.priority.module';
 
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ActionModalComponent } from './modal/action.modal.component';
+import { ActionImprovementGridButtonRenderer } from './grid/action.grid.buttons.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   imports: [
@@ -19,21 +22,26 @@ import { DropdownImprovementPriorityModule } from '../dropdown/improvement.prior
     SharedModule,
     FormsModule,
     AgGridModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ ActionImprovementGridButtonRenderer ]),
     DropdownMachineModule,
     DropdownPauseReasonModule,
     DropdownImprovementStatusModule,
     DropdownImprovementPriorityModule,    
     ReactiveFormsModule,
+    ModalModule.forRoot(),
+    AngularFontAwesomeModule,
   ],
   declarations: [
     ActionComponent,
+    ActionModalComponent,
+    ActionImprovementGridButtonRenderer,
   ],
   exports: [ ActionComponent ],
   providers: [
     ActionService,
   ],
    entryComponents: [
+    ActionModalComponent,
   ],     
 })
 export class ActionModule { }

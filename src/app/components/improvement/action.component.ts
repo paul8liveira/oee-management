@@ -3,7 +3,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../base.component';
 import { ActionImprovement } from '../../models/action.improvement';
 import { ActionService } from '../../services/improvement/action.service';
-
+import { ActionImprovementGridButtonRenderer } from './grid/action.grid.buttons.component';
 
 @Component({
   selector: 'app-improvement',
@@ -36,6 +36,7 @@ export class ActionComponent extends BaseComponent implements OnInit {
   statusInclud :number;
   priorityInclud :number;
   components;
+  frameworkComponents;
 
   constructor(private actionService: ActionService, 
               public toastr: ToastsManager, 
@@ -117,10 +118,19 @@ export class ActionComponent extends BaseComponent implements OnInit {
         editable: true,
         cellEditor: "datePicker",
       },
+      {
+        headerName: "Op.",
+        cellRenderer: "actionImprovementGridButtonRenderer",
+        colId: "params",
+        width: 110,
+      },
     ];
      
     this.context = { componentParent: this };
     this.components = { datePicker: this.getDatePicker() };
+    this.frameworkComponents = {
+      actionImprovementGridButtonRenderer: ActionImprovementGridButtonRenderer
+    };
   }
 
   ngOnInit() {
@@ -146,7 +156,7 @@ export class ActionComponent extends BaseComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.actionService.list()
+    this.actionService.listAll()
     .subscribe(
       result => {
         params.api.setRowData(result);

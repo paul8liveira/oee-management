@@ -25,15 +25,15 @@ import { ProgressService } from "../../../services/improvement/progress.service"
               formControlName="progress_id"
               type="hidden"/>
             <input 
-              id="action_id" 
-              formControlName="action_id"
-              type="hidden"/>
-            <input 
               id="channel_id" 
               formControlName="channel_id"
               type="hidden"/>
-          
-          <div class="form-row">
+            <input 
+              id="pause_reason_id" 
+              formControlName="pause_reason_id"
+              type="hidden"/>
+            
+            <div class="form-row">
           
               <div class="form-group col-md-6">
                   <label for="owner">Responsáveis</label>
@@ -42,54 +42,72 @@ import { ProgressService } from "../../../services/improvement/progress.service"
                       formControlName="owner"
                       type="text" 
                       class="form-control" 
-                      placeholder="Responsáveis"/>                      
-              </div>  
-  
+                      required autofocus/>                      
+              </div>
               
-              <div class="col-md-3 mb-3">
+              <div class="form-group col-md-6">
                   <label for="status">Situação</label>
                   <dropdown-improvement-status (changeEvent)="setStatus($event)"></dropdown-improvement-status>
               </div>
+
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="description">Descrição</label>
-                    <input 
-                        id="description" 
-                        formControlName="description"
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Descrição"/>                    
-                </div>
-            </div>
-
-            <div class="form-row">            
-                <div class="form-group col-md-6">
-                <label for="starts_at">Data de início</label>
-                <input 
-                    name="starts_at" 
-                    [(ngModel)]="progress.starts_at" 
-                    #starts_at="ngModel"
+                  <label for="starts_at">Data de início</label>
+                  <input 
+                    id="starts_at"    
+                    formControlName="starts_at"
                     type="date"
-                    class="form-control form-control-no-border"
-                    required autofocus>
+                    class="form-control"
+                    required autofocus/>
                 </div>
-
+            
                 <div class="form-group col-md-6">
                     <label for="finished_at">Data de conclusão</label>
                     <input 
-                        name="finished_at" 
-                        [(ngModel)]="progress.finished_at" 
-                        #finished_at="ngModel"
-                        type="date"
-                    class="form-control form-control-no-border">
+                      id="finished_at" 
+                      formControlName="finished_at" 
+                      type="date"
+                      class="form-control"
+                      required autofocus/>
                 </div>
             </div>
-                <button 
-                    type="submit" 
-                    class="btn btn-outline-primary" 
-                    [disabled]="!form.valid">Confirmar</button>            
+
+            <div class="form-row">
+                
+                <div class="form-group col-md-12">
+                    <label for="description">Descrição</label>
+                    <textarea
+                        id="description" 
+                        formControlName="description"
+                        rows="3"
+                        class="form-control" 
+                        required autofocus>
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                
+                <div class="form-group col-md-12">
+                  <label for="action_description">Descrição da ação</label>
+                  <textarea
+                      id="action_description" 
+                      formControlName="action_description"
+                      rows="3"
+                      class="form-control" 
+                      required autofocus>
+                  </textarea>
+                </div>
+
+            </div>
+            <!--
+            <button 
+                type="submit" 
+                class="btn btn-outline-primary" 
+                [disabled]="!form.valid">Confirmar</button>            
+            -->
         </form>
         <ng-template #loading>
             Carregando...
@@ -103,7 +121,6 @@ import { ProgressService } from "../../../services/improvement/progress.service"
    
   export class ProgressModalComponent implements OnInit {
     title: string;
-    action_id: number;
     channel_id: number;
     progress_id: number;
     statusInclud: number;
@@ -122,16 +139,16 @@ import { ProgressService } from "../../../services/improvement/progress.service"
     ngOnInit() {
       this.form = this.formBuilder.group({
         progress_id:  [this.progress_id],
-        action_id: [this.action_id],
         channel_id: [this.channel_id],
-        description: ['', Validators.required],
+        pause_reason_id: ['', Validators.required],
         owner: ['', Validators.required],
+        description: ['', Validators.required],
+        action_description: ['', Validators.required],
         status: ['Não Iniciado', Validators.required],
-        starts_at: [, Validators.required],
-        finished_at: [''],
+        starts_at: ['', Validators.required],
+        finished_at: ['', Validators.required],
       });
 
-      
       this.progress = this.progressService.list(this.progress_id)
       .pipe(
         tap(progress => this.form.patchValue(progress))
@@ -148,7 +165,7 @@ import { ProgressService } from "../../../services/improvement/progress.service"
       this.progressService.add(this.form.value)
       .subscribe(
         result => {
-          this.toastr.success("Progresso registrado.", "Sucesso!", { enableHTML: true, showCloseButton: true });
+          this.toastr.success("Progresso salvo.", "Sucesso!", { enableHTML: true, showCloseButton: true });
         },
         error => {
           this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });

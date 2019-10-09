@@ -59,11 +59,11 @@ import { ResumeService } from "../../../services/improvement/resume.service";
           <div class="form-row">
               <div class="form-group col-md-12">
                   <label for="action">Ações</label>
-                  <textarea 
-                      id="action" 
+                  <textarea
+                      id="action"
                       formControlName="action"
-                      rows="3" 
-                      class="form-control" 
+                      rows="3"
+                      class="form-control"
                       required autofocus>
                   </textarea>
               </div>
@@ -81,11 +81,12 @@ import { ResumeService } from "../../../services/improvement/resume.service";
                   </textarea>
               </div>
           </div>
-
+          <!--
           <button 
               type="submit" 
               class="btn btn-outline-primary" 
               [disabled]="!form.valid">Confirmar</button>            
+          -->
         </form>
         <ng-template #loading>
             Carregando...
@@ -104,8 +105,7 @@ import { ResumeService } from "../../../services/improvement/resume.service";
     form: FormGroup;
     resume: Observable<ResumeImprovement>;
     resume_update: ResumeImprovement = new ResumeImprovement ();
-    imports;
-
+    
     constructor(
       public bsModalRef: BsModalRef,
       private resumeService: ResumeService,

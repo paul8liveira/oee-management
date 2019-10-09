@@ -13,15 +13,29 @@ export class ActionService extends BaseService {
         super();
     }
 
-    list(): Observable<ActionImprovement[]> {
+    list(action_id : number): Observable<ActionImprovement> {
         let headers = new Headers({ 
             'Content-Type': 'application/json',
             'x-access-token': this.getToken()
         });
         let options = new RequestOptions({headers: headers});
     
-        const channelId = localStorage.getItem('channelId');
-        const url = environment.actionImprovementListURL + "/" + channelId ;
+        const url = environment.actionImprovementListURL.replace(":action_id", action_id.toString());        
+
+        return this.http.get(url, options)
+            .map(res => res.json())
+            .pipe(catchError(this.handleError));
+    }
+
+    listAll(): Observable<ActionImprovement[]> {
+        let headers = new Headers({ 
+            'Content-Type': 'application/json',
+            'x-access-token': this.getToken()
+        });
+        let options = new RequestOptions({headers: headers});
+    
+        const channelId = localStorage.getItem('channelId');        
+        const url = environment.actionImprovementListAllURL.replace(":channel_id", channelId.toString());
 
         return this.http.get(url, options)
             .map(res => res.json())

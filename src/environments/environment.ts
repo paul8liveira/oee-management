@@ -76,15 +76,15 @@ export const environment = {
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
   alertDeleteURL: `${serverURL}alert/delete`,      
-    //improvement - action
-  actionImprovementListURL: `${serverURL}improvement/action`,
+  //improvement - action
+  actionImprovementListAllURL: `${serverURL}improvement/action/channel/:channel_id`,
+  actionImprovementListURL: `${serverURL}improvement/action/:action_id`,
   actionImprovementAddURL: `${serverURL}improvement/action`,
   actionImprovementUpdateURL: `${serverURL}improvement/action/update`,
   actionImprovementDeleteURL: `${serverURL}improvement/action/delete`,
   //improvement - progress
-  progressImprovementListURL: `${serverURL}improvement/progress/:progress_id`,
-  progressImprovementListActionURL: `${serverURL}improvement/progress/action/:action_id`,
-  progressImprovementListChannelURL: `${serverURL}improvement/progress/channel/:channel_id`,
+  progressImprovementListAllURL: `${serverURL}improvement/progress/channel/:channel_id`,
+  progressImprovementListURL: `${serverURL}improvement/progress/:progress_id`,  
   progressImprovementAddURL: `${serverURL}improvement/progress`,
   progressImprovementUpdateURL: `${serverURL}improvement/progress/update`,
   progressImprovementDeleteURL: `${serverURL}improvement/progress/delete`,

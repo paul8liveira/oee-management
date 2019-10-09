@@ -3,6 +3,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../base.component';
 import { ProgressImprovement } from '../../models/progress.improvement';
 import { ProgressService } from '../../services/improvement/progress.service';
+import { ProgressImprovementGridButtonRenderer } from './grid/progress.grid.buttons.component';
 
 @Component({
   selector: 'app-improvement-progress',
@@ -25,6 +26,7 @@ export class ProgressComponent extends BaseComponent implements OnInit {
   rowSelection = "multiple";
   editType = "fullRow";
   context;
+  frameworkComponents;
   currentUser;
   statusInclud :number;
   pauseInclud : number;
@@ -79,25 +81,32 @@ export class ProgressComponent extends BaseComponent implements OnInit {
         cellEditor: "agSelectCellEditor",
         cellEditorParams: { values: this.extractValues(this.statusMappings) },
         refData: this.statusMappings,
-        width: 100,
       },
       {
         headerName: "Início",
         field: "starts_at",
         editable: true,
         cellEditor: "datePicker",
-        width: 110,
       },
       {
         headerName: "Fim",
         field: "finished_at",
         editable: true,
         cellEditor: "datePicker",
+      },
+      {
+        headerName: "Op.",
+        cellRenderer: "progressImprovementGridButtonRenderer",
+        colId: "params",
         width: 110,
       },
     ];
+    
     this.context = { componentParent: this };
     this.components = { datePicker: this.getDatePicker() };
+    this.frameworkComponents = {
+      progressImprovementGridButtonRenderer: ProgressImprovementGridButtonRenderer
+    };
   }
 
   ngOnInit() {
