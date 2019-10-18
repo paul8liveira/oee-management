@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, ViewContainerRef, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
  
 @Component({
@@ -8,6 +8,7 @@ import { ToastsManager } from 'ng2-toastr';
 export class DropdownImprovementPriorityComponent implements OnInit {
   items: Array<any> = [];
   selectedPriority: any;
+  @Input() priority: number;
   @Output() changeEvent = new EventEmitter<number>();
 
   constructor(
@@ -18,8 +19,12 @@ export class DropdownImprovementPriorityComponent implements OnInit {
   }
 
   ngOnInit() {  
-    this.load();     
+    this.load();
+    if (this.priority !== undefined) {
+      this.refreshValue(this.priority);
+    }
   }
+
   load() {
     this.items = [      
       {

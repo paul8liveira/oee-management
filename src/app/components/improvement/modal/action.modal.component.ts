@@ -63,8 +63,8 @@ import { ActionService } from "../../../services/improvement/action.service";
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="status">Prioridade</label>
-                    <dropdown-improvement-priority name="priority" (changeEvent)="setPriority($event)"></dropdown-improvement-priority>
+                    <label for="priority">Prioridade</label>
+                    <dropdown-improvement-priority id="priority" (changeEvent)="setPriority($event)" [priority]=priority ></dropdown-improvement-priority>
                 </div>
           </div>
 

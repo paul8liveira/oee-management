@@ -36,8 +36,8 @@ export class ResumeService extends BaseService {
         let options = new RequestOptions({headers: headers});
     
         const channel_id = localStorage.getItem('channelId');
-        const url = environment.resumeImprovementListAllURL.replace(":channel_id", channel_id.toString()).replace(":resume_id", resume_id.toString());
-
+        const url = environment.resumeImprovementListURL.replace(":channel_id", channel_id.toString()).replace(":resume_id", resume_id.toString());        
+        
         return this.http.get(url, options)
             .map(res => res.json())
             .pipe(catchError(this.handleError));
