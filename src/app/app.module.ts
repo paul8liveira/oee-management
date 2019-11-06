@@ -23,9 +23,9 @@ import { UserService } from './services/user/user.service';
 import { SponsorModule } from './components/sponsor/sponsor.module';
 import { AlertModule } from './components/alert/alert.module';
 
-import { ActionModule } from './components/improvement/action.module';
-import { ProgressModule } from './components/improvement/progress.module';
-import { ResumeModule } from './components/improvement/resume.module';
+import { ActionModule } from './components/improvement.action/action.module';
+import { ProgressModule } from './components/improvement.progress/progress.module';
+import { ResumeModule } from './components/improvement.resume/resume.module';
 
 @NgModule({
   declarations: [
