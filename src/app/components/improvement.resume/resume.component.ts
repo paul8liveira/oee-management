@@ -69,11 +69,13 @@ export class ResumeComponent extends BaseComponent implements OnInit {
         headerName: "Análise",
         field: "overview",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Ações",
         field: "action",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Responsáveis",

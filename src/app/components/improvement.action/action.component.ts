@@ -74,16 +74,19 @@ export class ActionComponent extends BaseComponent implements OnInit {
         field: "gain",
         editable: true,
         hide: false,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Descrição",
         field: "description",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Detalhamento",
         field: "detailing",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Responsáveis",

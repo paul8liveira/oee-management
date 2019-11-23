@@ -58,16 +58,19 @@ export class ProgressComponent extends BaseComponent implements OnInit {
         headerName: "Ganho",
         field: "gain",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Descrição",
         field: "description",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Descrição da ação",
         field: "action_description",
         editable: true,
+        cellEditor: "agLargeTextCellEditor",
       },
       {
         headerName: "Responsáveis",
