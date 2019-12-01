@@ -28,7 +28,6 @@ export class DateRangeComponent extends BaseComponent implements OnInit {
   }
 
   changeDateRange(dates: any): any {
-    console.log(dates);
     this.filterService.setDateRangeFilter(dates.value);
   }   
 
