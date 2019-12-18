@@ -34,7 +34,9 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
   }  
 
   private listenFilters() {
-		const subsCountdown = this.filterService.onCountdownUpdate$.subscribe(refresh => this.getProductionOEE());
+		const subsCountdown = this.filterService.onCountdownUpdate$.subscribe(refresh => {      
+      this.getProductionOEE()
+    });
 		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
 			this.dwmy = dwmy;
     });
@@ -58,6 +60,8 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
     //retorna enquanto não tiver os filtros completos 
     if((this.dwmy == undefined && this.dateRange == undefined) || this.channelId == undefined || this.machineCode == undefined)
       return;      
+
+    console.log(new Date());
   
     let dateRange: string[]
 
@@ -73,7 +77,8 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
     this.dashboardService.productionOEE(
       dateRange[0], 
       dateRange[1], 
-      this.channelId)
+      this.channelId, 
+      this.machineCode)
     .subscribe(
       result => {
         const productionOEE: Array<any> = []; 

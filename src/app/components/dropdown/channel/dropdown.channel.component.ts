@@ -42,8 +42,7 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
       result => {
         this.items = result.filter(f => f.active.toString() === "Ativo");
         if(this.items.length > 0) {
-          this.selectedChannelId = this.items[0].id;
-          this.filterService.setChannelFilter(this.selectedChannelId);
+          this.selectedChannelId = this.items[0].id;          
           this.setChannelLocalStorage(this.items[0]);
         }
       },
@@ -59,7 +58,6 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
         this.items = result.filter(f => f.active.toString() === "Ativo");
         if(this.items.length > 0) {
           this.selectedChannelId = this.items[0].id;
-          this.filterService.setChannelFilter(this.selectedChannelId);
           this.setChannelLocalStorage(this.items[0]);
         }
       },
@@ -68,9 +66,10 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
       });    
   }
 
-  private setChannelLocalStorage(value:any) {
+  public setChannelLocalStorage(value:any) {
     this.selectedChannelId = value.id;
-    let channel = this.items.filter(f => f.id == this.selectedChannelId);    
+    let channel = this.items.filter(f => f.id == this.selectedChannelId);  
+    this.filterService.setChannelFilter(this.selectedChannelId);  
 
     //guarda o canal no localstorage para ser utilizado em outros componentes
     localStorage.setItem('channelId', channel[0].id);

@@ -53,7 +53,7 @@ export class DropdownMachineComponent extends BaseComponent implements OnInit, O
       });     
   }
 
-  private refreshValue(value:any) {
+  public refreshValue(value:any) {
     this.selectedMachineCode = value.code;    
     this.filterService.setMachineFilter(value.code);
   }    

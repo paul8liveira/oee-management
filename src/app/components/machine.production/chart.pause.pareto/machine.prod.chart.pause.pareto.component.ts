@@ -19,8 +19,7 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
 
   private unsubscribe: Subscription[] = [];
 
-  public chart: AmChart;  
-  public productionOEE: Array<any>;
+  public chart: AmChart;
 
   constructor(
     private machinePauseService: MachinePauseService,

@@ -36,6 +36,7 @@ export class MachineProductionComponent extends BaseComponent implements OnInit,
         sec--;       
 
         if(sec == 0) {
+          console.log(sec)
           this.startIntervalTimer();          
           this.filterService.setRefreshingCountdown(true);
         }

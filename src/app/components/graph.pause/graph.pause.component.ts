@@ -70,6 +70,10 @@ export class GraphPauseComponent extends BaseComponent implements OnInit, OnDest
     this.unsubscribe.forEach(f => f.unsubscribe());
   }
 
+  public refreshChart() {
+    this.getChartData();
+  }
+
   private listenFilters() {
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
       this.dateRange = dateRange;
