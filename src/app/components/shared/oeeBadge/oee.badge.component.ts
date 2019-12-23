@@ -31,6 +31,7 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.unsubscribe.forEach(f => f.unsubscribe());
   }  
 
   private listenFilters() {
@@ -38,16 +39,16 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
       this.getProductionOEE()
     });
 		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
-			this.dwmy = dwmy;
+      this.dwmy = dwmy;
     });
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
-			this.dateRange = dateRange;
+      this.dateRange = dateRange;
     });    
 		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-			this.channelId = channelId;
+      this.channelId = channelId;
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
-			this.machineCode = machineCode;
+      this.machineCode = machineCode;
 		});            
 		this.unsubscribe.push(subsCountdown);    
 		this.unsubscribe.push(subsDWMY);    
@@ -58,11 +59,9 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
 
   private getProductionOEE() {  
     //retorna enquanto não tiver os filtros completos 
-    if((this.dwmy == undefined && this.dateRange == undefined) || this.channelId == undefined || this.machineCode == undefined)
+    if((!this.dwmy && !this.dateRange) || !this.channelId || !this.machineCode)
       return;      
 
-    console.log(new Date());
-  
     let dateRange: string[]
 
     //priorizo o seletor de dwmy (que fica na tela de produção da maquina), do contrario, esta no dashboard

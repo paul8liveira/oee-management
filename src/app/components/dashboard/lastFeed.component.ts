@@ -153,6 +153,7 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
       () => {
         sec--;
         if(sec == 0) {
+          sec = 60;
           this.refreshing = true;
           clearInterval(this.intervalTimer);
           this.filterService.setRefreshingCountdown(true);

@@ -70,7 +70,7 @@ export class GaugeShiftOeeComponent extends BaseComponent implements OnInit, OnD
 
   private getData() {
     //retorna enquanto não tiver os filtros completos 
-    if(this.dwmy == undefined || this.channelId == undefined || this.machineCode == undefined)
+    if(!this.dwmy || !this.channelId || !this.machineCode)
       return; 
 
     this.destroyCharts(() => {
