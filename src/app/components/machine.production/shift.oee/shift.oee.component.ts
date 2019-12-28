@@ -69,9 +69,13 @@ export class GaugeShiftOeeComponent extends BaseComponent implements OnInit, OnD
   }  
 
   private getData() {
+    console.log('antes')
+    console.log(this.dwmy, this.channelId, this.machineCode)
     //retorna enquanto não tiver os filtros completos 
-    if(!this.dwmy || !this.channelId || !this.machineCode)
+    if(isNaN(this.dwmy) || !this.channelId || !this.machineCode)
       return; 
+
+      console.log('depois')
 
     this.destroyCharts(() => {
     const dateRange: string[] = this.setDateByFilter(this.dwmy);

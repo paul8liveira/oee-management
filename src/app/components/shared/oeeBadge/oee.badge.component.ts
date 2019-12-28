@@ -3,6 +3,7 @@ import { FilterService } from '../../../services/dashboard/filter.service';
 import { Subscription } from 'rxjs';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
 import { BaseComponent } from '../../base.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-oee-badge',
@@ -36,10 +37,12 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
 
   private listenFilters() {
 		const subsCountdown = this.filterService.onCountdownUpdate$.subscribe(refresh => {      
-      this.getProductionOEE()
+      this.getProductionOEE();
     });
 		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
       this.dwmy = dwmy;
+      const dateRange = this.setDateByFilter(this.dwmy);
+      this.dateRange = [moment(dateRange[0]).toDate(), moment(dateRange[1]).toDate()];;
     });
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
       this.dateRange = dateRange;
@@ -58,18 +61,10 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
   }
 
   private getProductionOEE() {  
-    //retorna enquanto não tiver os filtros completos 
-    if((!this.dwmy && !this.dateRange) || !this.channelId || !this.machineCode)
-      return;      
+    if(!this.dateRange || !this.channelId || !this.machineCode)
+      return;  
 
-    let dateRange: string[]
-
-    //priorizo o seletor de dwmy (que fica na tela de produção da maquina), do contrario, esta no dashboard
-    //e la, utiliza o seletor por data
-    if(this.dwmy)
-      dateRange = this.setDateByFilter(this.dwmy);
-    else
-      dateRange = [this.formatDateTimeMySQL(this.dateRange[0], true), this.formatDateTimeMySQL(this.dateRange[1], false)];
+    let dateRange: string[] = [this.formatDateTimeMySQL(this.dateRange[0], true), this.formatDateTimeMySQL(this.dateRange[1], false)]
       
     this.refreshing = true;
           
