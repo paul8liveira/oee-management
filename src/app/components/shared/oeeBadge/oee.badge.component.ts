@@ -47,8 +47,11 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
       this.dateRange = dateRange;
     });    
-		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-      this.channelId = channelId;
+		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {
+      this.channelId = channel.id;
+
+      //seto null para aguardar a emissão do dados quando o dropdown de maquinas estiver carregado
+      this.machineCode = null; 
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
       this.machineCode = machineCode;
@@ -83,15 +86,17 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
           if(result[i].length > 0) 
             productionOEE.push(result[i]);
         }
+
+        if(!productionOEE[0]) return;
                 
         //filtra oee conforme maquina selecionada e exibe 
-        const oee = productionOEE[0].filter(f => {
-          return f.machine_code === this.machineCode;
-        });
-        
-        if(oee && oee.length > 0)
-          this.machineName = `OEE ${oee[0].machine_name}`; 
-          this.oee = `${oee[0].oee}%`;        
+        const oee = productionOEE[0].find(f => f.machine_code == this.machineCode);
+
+        if(oee) {
+          this.machineName = `OEE ${oee.machine_name}`; 
+          this.oee = `${oee.oee}%`;  
+        }
+      
     },
     error => {
       console.log(error);

@@ -30,7 +30,7 @@ export class DropdownMachineComponent extends BaseComponent implements OnInit, O
   }
 
   ngOnInit() {      
-    const subs = this.filterService.onChannelUpdate$.subscribe(channelId => this.load(channelId));   
+    const subs = this.filterService.onChannelUpdate$.subscribe(channel => this.load(channel.id));   
     this.unsubscribe.push(subs); 
   }
 

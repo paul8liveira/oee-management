@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map'
 import { Subject } from 'rxjs';
+import { Channel } from '../../models/channel';
 
 @Injectable()
 export class FilterService  {
 	/*evento global para registrar a troca do filtro dwmy*/
     public onDWMYUpdate$: Subject<number>;
     public onCountdownUpdate$: Subject<boolean>;
-    public onChannelUpdate$: Subject<number>;
+    public onChannelUpdate$: Subject<Channel>;
     public onMachineUpdate$: Subject<string>;
     public onDateRangeUpdate$: Subject<Date[]>;
 
@@ -24,8 +25,8 @@ export class FilterService  {
         this.setRefreshingCountdown(true);
     }
         
-	public setChannelFilter(channelId: number): void {             
-        this.onChannelUpdate$.next(channelId);
+	public setChannelFilter(channel: Channel): void {             
+        this.onChannelUpdate$.next(channel);
         this.setRefreshingCountdown(true);
     } 
     

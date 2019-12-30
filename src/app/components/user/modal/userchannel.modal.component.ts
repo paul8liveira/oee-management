@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, OnInit, ViewContainerRef, OnDestroy } from "@angular/core";
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ChannelService } from "../../../services/channel/channel.service";
 import { ToastsManager } from 'ng2-toastr';
 import { Channel } from "../../../models/channel";
 import { UserChannel } from "../../../models/user.channel";
 import { UserService } from "../../../services/user/user.service";
+import { Subscription } from "rxjs";
+import { FilterService } from "../../../services/dashboard/filter.service";
 
 @Component({
     selector: 'modal-content',
@@ -17,7 +19,7 @@ import { UserService } from "../../../services/user/user.service";
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <dropdown-channel [listAll]="true" (changeEvent)="setChannel($event)"></dropdown-channel>
+          <dropdown-channel [listAll]="true"></dropdown-channel>
           <button type="button" class="btn btn-outline-primary" (click)="add()">Adicionar</button>
         </div>
         <table class="table table-hover table-striped table-sm">
@@ -49,25 +51,32 @@ import { UserService } from "../../../services/user/user.service";
       `
   })
    
-  export class UserChannelModalComponent implements OnInit {
+  export class UserChannelModalComponent implements OnInit, OnDestroy {
     title: string;
     userId: number;
     channels: Array<Channel> = [];
     userChannel: UserChannel = new UserChannel();
+    private unsubscribe: Subscription[] = []; 
    
     constructor(
       public bsModalRef: BsModalRef,
       private channelService: ChannelService,
       private userService: UserService,
       public toastr: ToastsManager,
-      vcr: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vcr);         
+      vcr: ViewContainerRef,
+      private filterService: FilterService) {
+        this.toastr.setRootViewContainerRef(vcr); 
+        this.listenFilters();        
     }
    
     ngOnInit() {
       this.userChannel.userId = this.userId;
       this.loadGrid();
     }
+
+    ngOnDestroy() {    
+      this.unsubscribe.forEach(f => f.unsubscribe());
+    }      
 
     loadGrid() {
       this.channelService.listByUser(this.userChannel.userId)
@@ -80,8 +89,16 @@ import { UserService } from "../../../services/user/user.service";
         });      
     }
 
-    setChannel($event) {
-      this.userChannel.channelId = $event.id;
+    private listenFilters() {
+      const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {        
+        this.setChannel(channel.id);
+      });  
+      this.unsubscribe.push(subsChannel); 
+         
+    }    
+
+    private setChannel(channelId) {
+      this.userChannel.channelId = channelId;
     }
 
     add() {

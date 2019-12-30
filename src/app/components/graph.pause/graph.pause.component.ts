@@ -79,8 +79,8 @@ export class GraphPauseComponent extends BaseComponent implements OnInit, OnDest
       this.dateRange = dateRange;
       this.getChartData();
     });
-		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-			this.channelId = channelId;
+		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {
+			this.channelId = channel.id;
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
       this.machineCode = machineCode;

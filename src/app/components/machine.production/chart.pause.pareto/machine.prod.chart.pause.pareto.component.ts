@@ -50,8 +50,8 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
 		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
 			this.dwmy = dwmy;
     });
-		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-			this.channelId = channelId;
+		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {
+			this.channelId = channel.id;
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
 			this.machineCode = machineCode;

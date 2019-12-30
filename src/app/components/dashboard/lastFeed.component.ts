@@ -61,8 +61,8 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
 			this.dateRange = dateRange;
     });
-		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-			this.channelId = channelId;
+		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {
+			this.channelId = channel.id;
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
 			this.machineCode = machineCode;

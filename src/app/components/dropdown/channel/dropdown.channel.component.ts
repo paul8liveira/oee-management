@@ -3,6 +3,7 @@ import { ChannelService } from '../../../services/channel/channel.service';
 import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../../base.component';
 import { FilterService } from '../../../services/dashboard/filter.service';
+import { Channel } from '../../../models/channel';
  
 @Component({
   selector: 'dropdown-channel',  
@@ -12,6 +13,7 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
   items: Array<any> = [];
   selectedChannelId: number;
   @Input() listAll: boolean;
+
 
   constructor(
     private channelService: ChannelService,
@@ -66,12 +68,11 @@ export class DropdownChannelComponent extends BaseComponent implements OnInit {
       });    
   }
 
-  public setChannelLocalStorage(value:any) {
-    this.selectedChannelId = value.id;
-    let channel = this.items.filter(f => f.id == this.selectedChannelId);  
-    this.filterService.setChannelFilter(this.selectedChannelId);  
+  public setChannelLocalStorage(channel: Channel) {
+    this.selectedChannelId = channel.id;
+    this.filterService.setChannelFilter(channel);  
 
     //guarda o canal no localstorage para ser utilizado em outros componentes
-    localStorage.setItem('channelId', channel[0].id);
+    localStorage.setItem('channelId', channel.id.toString());
   }    
 }

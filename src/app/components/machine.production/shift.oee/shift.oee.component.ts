@@ -56,8 +56,8 @@ export class GaugeShiftOeeComponent extends BaseComponent implements OnInit, OnD
 		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
 			this.dwmy = dwmy;
     });
-		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channelId => {
-			this.channelId = channelId;
+		const subsChannel = this.filterService.onChannelUpdate$.subscribe(channel => {
+			this.channelId = channel.id;
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
 			this.machineCode = machineCode;
@@ -69,13 +69,9 @@ export class GaugeShiftOeeComponent extends BaseComponent implements OnInit, OnD
   }  
 
   private getData() {
-    console.log('antes')
-    console.log(this.dwmy, this.channelId, this.machineCode)
     //retorna enquanto não tiver os filtros completos 
     if(isNaN(this.dwmy) || !this.channelId || !this.machineCode)
       return; 
-
-      console.log('depois')
 
     this.destroyCharts(() => {
     const dateRange: string[] = this.setDateByFilter(this.dwmy);
