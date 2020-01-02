@@ -1,6 +1,7 @@
 import { Component, ViewContainerRef, OnInit, Output, EventEmitter } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { FilterService } from '../../../services/dashboard/filter.service';
+import { DWMY } from '../../../utils/enums/dwmy.enum';
  
 @Component({
   selector: 'dropdown-dwmy',  
@@ -9,23 +10,23 @@ import { FilterService } from '../../../services/dashboard/filter.service';
 export class DropdownDWMYComponent implements OnInit {
   items: Array<any> = [
     {
-      id: 4,
+      id: DWMY.DIA_ANTERIOR,
       name: 'Dia anterior',
     },      
     {
-      id: 3,
+      id: DWMY.DIA_ATUAL,
       name: 'Dia atual',
     },      
     {
-      id: 2,
+      id: DWMY.SETE_DIAS,
       name: '7 dias atrás',
     },
     {
-      id: 1,
+      id: DWMY.MES_ATUAL,
       name: 'Mês atual',
     }, 
     {
-      id: 0,
+      id: DWMY.ANO_ATUAL,
       name: 'Ano atual',
     },
   ];

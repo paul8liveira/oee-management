@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { FilterService } from '../../services/dashboard/filter.service';
 import { Subscription } from 'rxjs';
+import { DWMY } from '../../utils/enums/dwmy.enum';
 
 @Component({
   selector: 'app-machine-production',
@@ -13,13 +14,14 @@ export class MachineProductionComponent extends BaseComponent implements OnInit,
   private intervalTimer: any;
   public timerStr: string = "00:00:00";
   private unsubscribe: Subscription[] = [];
+  public dwmy: number = DWMY.DIA_ATUAL;
   
   constructor(
     public toastr: ToastsManager, 
     private filterService: FilterService) 
   {
     super();
-    this.listenFilters();              
+    this.listenFilters();   
   }
 
   ngOnInit() {
@@ -54,13 +56,19 @@ export class MachineProductionComponent extends BaseComponent implements OnInit,
   }
 
   private listenFilters() {
-		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {      
+		const subsDWMY = this.filterService.onDWMYUpdate$.subscribe(dwmy => {
+      this.dwmy = dwmy;  
+          
       //diferente de dia atual, trava o countdown
-      if(dwmy != 3) 
+      if(this.dwmy != DWMY.DIA_ATUAL) 
         this.stopIntervalTimer();
       else 
         this.startIntervalTimer();
     });
 		this.unsubscribe.push(subsDWMY);    
   }   
+
+  public get showGauge() {
+    return this.dwmy == DWMY.DIA_ANTERIOR || this.dwmy == DWMY.DIA_ATUAL;
+  }
 }
