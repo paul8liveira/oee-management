@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MachineConfig } from "../../../models/machine.config";
 import { MachineService } from "../../../services/machine/machine.service";
+import { BaseComponent } from "../../base.component";
 
 declare var $ :any;
 
@@ -48,7 +49,7 @@ declare var $ :any;
               <small id="max_day_production" class="form-text text-muted">Esse é o valor máximo que a máquina deve produzir no dia</small>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" [hidden]="!isAdmin">
           
             <div id="accordion">              
               <div class="card">
@@ -145,7 +146,7 @@ declare var $ :any;
       `
   })
    
-  export class SQLModalComponent implements OnInit {
+  export class SQLModalComponent extends BaseComponent implements OnInit {
     title: string;
     machineCode: string;
     form: FormGroup;
@@ -157,6 +158,7 @@ declare var $ :any;
       public toastr: ToastsManager,
       private formBuilder: FormBuilder,
       vcr: ViewContainerRef) {
+        super();
         this.toastr.setRootViewContainerRef(vcr);         
     }
    
@@ -189,5 +191,9 @@ declare var $ :any;
           this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
         }
       );      
+    }
+
+    public get isAdmin()  {
+      return this.getCurrentUser().admin;
     }
   }
