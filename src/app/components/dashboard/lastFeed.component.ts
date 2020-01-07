@@ -301,11 +301,11 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
     const dateIni = this.formatDateTimeMySQL(this.dateRange[0], true);
     const dateFin = this.formatDateTimeMySQL(this.dateRange[1], false);
 
+    this.productionOEE = [];
+
     this.dashboardService.productionOEE(dateIni, dateFin, this.channelId)
     .subscribe(
       result => {
-        this.productionOEE = []; 
-        
         //rejeito result set "ok" do mysql
         for(let i = 0; i < result.length; i++) {
           //vou ter que resolver isso depois na proc, to sem paciencia agora
