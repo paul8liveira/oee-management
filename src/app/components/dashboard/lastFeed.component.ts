@@ -57,6 +57,7 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
 		const subsCountdown = this.filterService.onCountdownUpdate$.subscribe(refresh => {
       this.getLastFeed();
       this.getProductionCount();
+      this.getProductionOEE();
     });
 		const subsDateRange = this.filterService.onDateRangeUpdate$.subscribe(dateRange => {      
 			this.dateRange = dateRange;
@@ -290,6 +291,31 @@ export class LastFeedComponent extends BaseComponent implements OnInit, OnDestro
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
       }
     );
+  }  
+
+  private getProductionOEE() {  
+    //retorna enquanto não tiver os filtros completos 
+    if(this.dateRange == undefined || this.channelId == undefined || this.machineCode == undefined)
+      return; 
+
+    const dateIni = this.formatDateTimeMySQL(this.dateRange[0], true);
+    const dateFin = this.formatDateTimeMySQL(this.dateRange[1], false);
+
+    this.dashboardService.productionOEE(dateIni, dateFin, this.channelId)
+    .subscribe(
+      result => {
+        this.productionOEE = []; 
+        
+        //rejeito result set "ok" do mysql
+        for(let i = 0; i < result.length; i++) {
+          //vou ter que resolver isso depois na proc, to sem paciencia agora
+          if(result[i].length > 0) 
+            this.productionOEE.push(result[i]);
+        }
+    },
+    error => {
+      console.log(error);
+    });     
   }  
 
   get pauseIncidests() {
