@@ -64,7 +64,7 @@
       <span>Máquina</span>
     </h6>
     <ul class="nav flex-column mb-2">
-      <li class="nav-item" [ngStyle]="{'display': currentUser.admin == 1 ? 'block' : 'none'}">
+      <li class="nav-item">
         <a [ngClass]="(linkActive=='machine')?'nav-link active':'nav-link'" [routerLink]="['/machine']">
           <i-plus-circle class="feather"></i-plus-circle>
           Criar máquina
@@ -135,10 +135,6 @@
     </div>
     <!-- administração -->
 
-    <div id="divOEE" class="card text-white bg-dark text-center" style="display:none;">
-      <div class="card-body">
-        <p class="card-text" style="font-size: 20px"></p>
-      </div>
-    </div>
+    <app-oee-badge></app-oee-badge>
   </div>
 </nav>

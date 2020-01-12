@@ -138,7 +138,7 @@ export class DashboardService extends BaseService {
             .pipe(catchError(this.handleError));
     }
 
-    productionOEE(dateIni: string, dateFin: string, channelId: number): Observable<any> {
+    productionOEE(dateIni: string, dateFin: string, channelId: number, machineCode: string = null): Observable<any> {
         let headers = new Headers({ 
             'Content-Type': 'application/json',
             'x-access-token': this.getToken()
@@ -146,6 +146,9 @@ export class DashboardService extends BaseService {
         let options = new RequestOptions({headers: headers});
 
         let params = `${environment.productionOEEURL}?dateIni=${dateIni}&dateFin=${dateFin}&ch_id=${channelId.toString()}`;
+        if(machineCode)
+            params += `&machineCode=${machineCode}`;
+            
         return this.http.get(params, options)
             .map(res => res.json())
             .pipe(catchError(this.handleError));
