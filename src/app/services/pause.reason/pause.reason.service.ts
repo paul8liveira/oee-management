@@ -14,7 +14,7 @@ export class PauseReasonService extends BaseService {
         super();
     }
 
-    dropdown(channelId: number): Observable<PauseReason[]> {
+    dropdown(channelId: number, machineCode: string): Observable<PauseReason[]> {
         let headers = new Headers({ 
             'Content-Type': 'application/json',
             'x-access-token': this.getToken()
@@ -22,7 +22,8 @@ export class PauseReasonService extends BaseService {
         let options = new RequestOptions({headers: headers});
 
         let url = environment.pauseReasonDropdownURL
-            .replace(":channelId", channelId.toString());
+            .replace(":channelId", channelId.toString())
+            .replace(":machineCode", machineCode);
         return this.http.get(url, options)
             .map(res => res.json())
             .pipe(catchError(this.handleError));

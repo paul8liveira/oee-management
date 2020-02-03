@@ -260,7 +260,8 @@ export class GraphPauseComponent extends BaseComponent implements OnInit, OnDest
     const initialState = {
       pauses: this.pauses,
       title: `Confirmar pausa selecionada de ${end.date_dif} minutos`,
-      channelId: this.channelId
+      channelId: this.channelId,
+      machineCode: this.machineCode
     };
     this.bsModalRef = this.modalService.show(PauseModalComponent, {initialState});
 

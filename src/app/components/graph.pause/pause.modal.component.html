@@ -31,7 +31,11 @@
     </table>  
     <div class="row">
         <div class="col">
-            <dropdown-pause-reason [channelId]="channelId" (emitChangeEvent)="setPauseReason($event)"></dropdown-pause-reason>
+            <dropdown-pause-reason 
+                [channelId]="channelId" 
+                [machineCode]="machineCode"
+                (emitChangeEvent)="setPauseReason($event)">
+            </dropdown-pause-reason>
         </div>
     </div>
     

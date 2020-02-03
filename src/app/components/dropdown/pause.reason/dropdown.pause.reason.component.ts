@@ -18,6 +18,7 @@ import { PauseReason } from '../../../models/pause.reason';
 export class DropdownPauseReasonComponent extends BaseComponent implements OnInit {
   items: Array<PauseReason> = [];
   @Input() channelId: number;
+  @Input() machineCode: string = '';
   @Output() emitChangeEvent = new EventEmitter();
 
   constructor(
@@ -30,11 +31,11 @@ export class DropdownPauseReasonComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-    this.load(this.channelId);
+    this.load(this.channelId, this.machineCode);
   }
 
-  load(channelId: number) {
-    this.pauseReasonService.dropdown(channelId)
+  load(channelId: number, machineCode: string) {
+    this.pauseReasonService.dropdown(channelId, machineCode)
     .subscribe(
       result => {
         this.items = result;

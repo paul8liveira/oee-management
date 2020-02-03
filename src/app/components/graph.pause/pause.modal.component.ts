@@ -13,6 +13,7 @@ import { DashboardService } from "../../services/dashboard/dashboard.service";
     pauses: Array<MachinePauseDash> = [];
     title: string;
     channelId: number;
+    machineCode: string;
    
     constructor(
       public bsModalRef: BsModalRef,
