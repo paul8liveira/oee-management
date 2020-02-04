@@ -102,7 +102,18 @@ import { Observable } from 'rxjs';
               type="text" 
               class="form-control" />
               <small id="chart_tooltip_desc" class="form-text text-muted">Esse tooltip aparece quando você passa o mouse sobre as linhas do gráfico. Não esqueça de informar o marcador __value. Ex: OEE: __value%</small>
-          </div>                                                 
+          </div>
+          
+          <div class="form-group">
+            <label for="logo_url">URL do logo</label>
+            <input 
+              id="logo_url" 
+              formControlName="logo_url"
+              type="text" 
+              class="form-control" />
+              <small id="logo_url" class="form-text text-muted">Logo que vai aparecer no cabeçalho do site</small>
+          </div>          
+
           <button 
             type="submit" 
             class="btn btn-outline-primary" 
@@ -143,6 +154,7 @@ import { Observable } from 'rxjs';
         field5: ['', Validators.required],
         refresh_time: ['', Validators.required],
         chart_tooltip_desc: ['', Validators.required],
+        logo_url: [''],
       });
 
       this.channelConfig = this.channelService.getChannelConfig(this.channelId)

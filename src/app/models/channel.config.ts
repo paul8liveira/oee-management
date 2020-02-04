@@ -12,6 +12,7 @@ export class ChannelConfig extends BaseModel {
   mobile_sql: string;
   chart_tooltip_desc: string;
   refresh_time: number;
+  logo_url: string;
   
   constructor() {
     super();

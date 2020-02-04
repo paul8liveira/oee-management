@@ -131,5 +131,18 @@ export class ChannelService extends BaseService {
             JSON.stringify(channelConfig), { headers: headers })
             .map(res => res.json())
             .pipe(catchError(this.handleError));         
-    }     
+    }
+    
+    getChannelLogo(channelId: number): Observable<string> {
+        let headers = new Headers({ 
+            'Content-Type': 'application/json',
+            'x-access-token': this.getToken()
+        });
+        let options = new RequestOptions({headers: headers});
+
+        let url = `${environment.channelConfigURL.replace(":channelId", channelId.toString())}/logo`;
+        return this.http.get(url, options)
+            .map(res => res.json())
+            .pipe(catchError(this.handleError));
+    }      
 }
