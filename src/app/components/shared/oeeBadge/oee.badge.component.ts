@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../../../services/dashboard/filter.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
 import { BaseComponent } from '../../base.component';
 import * as moment from 'moment';
+import { ChannelService } from '../../../services/channel/channel.service';
 
 @Component({
   selector: 'app-oee-badge',
@@ -20,10 +21,12 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
   public refreshing: boolean = false;  
   public oee: string = undefined;
   public machineName: string = undefined;
+  public logoUrl$: Observable<string>;
   
   constructor(
     private filterService: FilterService, 
-    private dashboardService: DashboardService) { 
+    private dashboardService: DashboardService,
+    private channelService: ChannelService) { 
     super();
       this.listenFilters();
   }
@@ -52,6 +55,8 @@ export class OEEBadgeComponent extends BaseComponent implements OnInit {
 
       //seto null para aguardar a emissão do dados quando o dropdown de maquinas estiver carregado
       this.machineCode = null; 
+
+      this.logoUrl$ = this.channelService.getChannelLogo(channel.id);
     });  
 		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
       this.machineCode = machineCode;
