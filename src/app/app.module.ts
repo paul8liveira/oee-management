@@ -22,6 +22,7 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { UserService } from './services/user/user.service';
 import { SponsorModule } from './components/sponsor/sponsor.module';
 import { AlertModule } from './components/alert/alert.module';
+import { ProductModule } from './components/product/product.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AlertModule } from './components/alert/alert.module';
     MachineProductionModule,
     SponsorModule,
     AlertModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    ProductModule
   ],
   providers: [
     UserService, 

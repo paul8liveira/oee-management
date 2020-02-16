@@ -9,6 +9,7 @@ import { GraphPauseComponent } from './components/graph.pause/graph.pause.compon
 import { MachineProductionComponent } from './components/machine.production/machine.production.component';
 import { SponsorComponent } from './components/sponsor/sponsor.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ProductComponent } from './components/product/product.component';
 
 const appRoutes: Routes = [
     {
@@ -58,7 +59,12 @@ const appRoutes: Routes = [
       path: 'alert',
       canActivate: [AuthGuard],
       component: AlertComponent
-    },                        
+    },   
+    {
+      path: 'product',
+      canActivate: [AuthGuard],
+      component: ProductComponent
+    },                            
     {
       path: '**',
       redirectTo: 'dashboard'

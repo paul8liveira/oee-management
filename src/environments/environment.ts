@@ -75,5 +75,7 @@ export const environment = {
   alertListURL: `${serverURL}alert/channel/:channelId`,
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
-  alertDeleteURL: `${serverURL}alert/delete`,      
+  alertDeleteURL: `${serverURL}alert/delete`,  
+  //product
+  productURL: `${serverURL}product`,
 };

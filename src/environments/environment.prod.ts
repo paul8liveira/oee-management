@@ -71,4 +71,6 @@ export const environment = {
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
   alertDeleteURL: `${serverURL}alert/delete`, 
+  //product
+  productURL: `${serverURL}product`,  
 };
