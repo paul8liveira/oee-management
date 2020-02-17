@@ -42,8 +42,8 @@ import { ProductModule } from './components/product/product.module';
     MachineProductionModule,
     SponsorModule,
     AlertModule,
-    ToastModule.forRoot(),
-    ProductModule
+    ProductModule,
+    ToastModule.forRoot()
   ],
   providers: [
     UserService, 

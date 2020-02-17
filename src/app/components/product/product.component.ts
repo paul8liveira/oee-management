@@ -18,39 +18,20 @@ export class ProductComponent extends BaseComponent implements OnInit {
   paginationPageSize = 10;
   rowSelection = "multiple";
   editType = "fullRow";
-  currentUser;
   context;
   frameworkComponents;   
   private channel_id: number;
+  public machinelist: any = [];
 
   constructor(private productService: ProductService, 
               public toastr: ToastsManager, 
-              vcr: ViewContainerRef) {
+              public vcr: ViewContainerRef) {
     super();                
 
     this.channel_id = parseInt(localStorage.getItem('channelId'));
     this.product = new Product(this.channel_id);
 
-    this.currentUser = this.getCurrentUser();
     this.toastr.setRootViewContainerRef(vcr);     
-    this.columnDefs = [
-      {
-        headerName: "Canal",
-        field: "channel_name",
-        editable: false         
-      },
-      {
-        headerName: "Máquina",
-        field: "machine_name",
-        editable: false,
-      },      
-      {
-        headerName: "Produto",
-        field: "name",
-        editable: true
-      },
-    ];   
-    this.context = { componentParent: this };
   }
 
   ngOnInit() {
@@ -59,9 +40,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    this.list();
-   
+    this.list();    
   }
 
   list() {
@@ -69,11 +48,11 @@ export class ProductComponent extends BaseComponent implements OnInit {
     .subscribe(
       result => {
         this.gridApi.setRowData(result);
+        this.gridApi.sizeColumnsToFit();
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
-      }); 
-    this.gridApi.sizeColumnsToFit();
+      });     
   }
 
   onCellValueChanged(event) {
@@ -98,9 +77,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     this.productService.update(data)
     .subscribe(
       result => {},
-      error => {
-        this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
-      }
+      error => this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true })
     );    
   }
 
@@ -125,6 +102,35 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
   setMachineCode(event) {
     this.product.machine_code = event;
+  }
+
+  getMachineList(list) {
+    this.machinelist = list.reduce((obj, item) => {
+      obj[item["code"]] = item.dropdown_label;
+      return obj;
+    }, {});
+
+    this.columnDefs = [
+      {
+        headerName: "Canal",
+        field: "channel_name",
+        editable: false         
+      },
+      {
+        headerName: "Máquina",
+        field: "machine_code",
+        editable: true,
+        cellEditor: "agSelectCellEditor",
+        cellEditorParams: { values: this.extractValues(this.machinelist) },
+        refData: this.machinelist
+      },    
+      {
+        headerName: "Produto",
+        field: "name",
+        editable: true
+      },
+    ];   
+    this.context = { componentParent: this };    
   }
 
 }

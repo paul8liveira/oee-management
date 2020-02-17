@@ -17,6 +17,7 @@ import { BaseComponent } from '../../base.component';
 export class DropdownMachineNoGroupComponent extends BaseComponent implements OnInit {
   @Input() channel_id: number;
   @Output() emitChangeEvent: EventEmitter<string> = new EventEmitter();
+  @Output() emitList: EventEmitter<any> = new EventEmitter();
 
   items: Array<any> = [];
   selectedMachineCode: any;
@@ -41,8 +42,9 @@ export class DropdownMachineNoGroupComponent extends BaseComponent implements On
         this.items = result;
         if(this.items.length > 0) {
           this.selectedMachineCode = this.items[0].code;
-          this.refreshValue(this.items[0]);
+          this.refreshValue(this.items[0]);          
         }
+        this.emitList.emit(result);
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
@@ -52,5 +54,9 @@ export class DropdownMachineNoGroupComponent extends BaseComponent implements On
   public refreshValue(value:any) {
     this.selectedMachineCode = value.code; 
     this.emitChangeEvent.emit(value.code); 
-  }    
+  } 
+  
+  public get getItems() {
+    return this.items;
+  }
 }

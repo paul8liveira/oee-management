@@ -16,7 +16,7 @@ import { DropdownMachineModule } from '../dropdown/machine/dropdown.machine.modu
     AgGridModule,
     FormsModule,
     AngularFontAwesomeModule,   
-    DropdownMachineModule 
+    DropdownMachineModule
   ],
   declarations: [ 
     ProductComponent

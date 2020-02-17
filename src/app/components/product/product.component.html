@@ -6,62 +6,58 @@
       <div class="row margin-bottom-5px">        
         <div class="col-md-12 order-md-1">
 
-          <div id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="card">
-              <div class="card-header" role="tab" id="headingOne">
-                <h6 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Adicionar produto
-                  </a>
-                </h6>
-              </div>
-              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="card-block padding-10px">
-                  <form 
-                    name="form" 
-                    (ngSubmit)="f.form.valid && add($event)" #f="ngForm" novalidate 
-                    class="needs-validation">
+          <div class="card">
+            <div class="card-header">
+              <h6 class="mb-0">
+                Adicionar produto
+              </h6>
+            </div>
 
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="machine_code">Máquina</label>
-                        <dropdown-machine-no-group 
-                          [channel_id]="channel_id" 
-                          (emitChangeEvent)="setMachineCode($event)">
-                        </dropdown-machine-no-group>
-                      </div>
+            <div class="card-block padding-10px">
+              <form 
+                name="form" 
+                (ngSubmit)="f.form.valid && add($event)" #f="ngForm" novalidate 
+                class="needs-validation">
 
-                      <div class="col-md-6 mb-3">
-                        <label for="name">Produto</label>
-                        <input 
-                          name="name" 
-                          [(ngModel)]="product.name" 
-                          #name="ngModel" 
-                          type="text" 
-                          class="form-control form-control-no-border"
-                          required>
-                      </div>                          
-                    </div>
-                    
-                    <div class="row row-vcenter">
-                      <div class="col-md-2 mb-3 vcenter">
-                        <label for="next_maintenance">&nbsp;</label>
-                        <button 
-                          [disabled]="!f.form.valid"
-                          class="btn btn-no-border btn-primary btn-sm btn-block" 
-                          type="submit">
-                          Adicionar
-                        </button>
-                      </div>
-                    </div>
-                    <div 
-                      *ngIf="product.message" 
-                      [ngClass]="(product.error) ? 'alert alert-danger alert-margin' : 'alert alert-success alert-margin'">
-                      {{product.message}}
-                    </div>    
-                  </form>                  
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="machine_code">Máquina</label>
+                    <dropdown-machine-no-group 
+                      [channel_id]="channel_id" 
+                      (emitChangeEvent)="setMachineCode($event)"
+                      (emitList)="getMachineList($event)">
+                    </dropdown-machine-no-group>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="name">Produto</label>
+                    <input 
+                      name="name" 
+                      [(ngModel)]="product.name" 
+                      #name="ngModel" 
+                      type="text" 
+                      class="form-control form-control-no-border"
+                      required>
+                  </div>                          
                 </div>
-              </div>
+                
+                <div class="row row-vcenter">
+                  <div class="col-md-2 mb-3 vcenter">
+                    <label for="next_maintenance">&nbsp;</label>
+                    <button 
+                      [disabled]="!f.form.valid"
+                      class="btn btn-no-border btn-primary btn-sm btn-block" 
+                      type="submit">
+                      Adicionar
+                    </button>
+                  </div>
+                </div>
+                <div 
+                  *ngIf="product.message" 
+                  [ngClass]="(product.error) ? 'alert alert-danger alert-margin' : 'alert alert-success alert-margin'">
+                  {{product.message}}
+                </div>    
+              </form>                  
             </div>
           </div>
         </div>
