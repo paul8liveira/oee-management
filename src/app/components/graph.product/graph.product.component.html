@@ -1,0 +1,32 @@
+<app-nav componentName="Apontar quantidade produzida do produto no gráfico"></app-nav>
+<div class="container-fluid">
+  <div class="row">
+    <app-menu linkActive="graphproduct"></app-menu>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom margin-top-45">
+        <div class="btn-toolbar" role="toolbar">
+          <div class="form-row">
+            <div class="col">
+              <app-datetime-range></app-datetime-range>                               
+            </div>
+            <div class="col">
+              <dropdown-channel [listAll]="false"></dropdown-channel>
+            </div>
+            <div class="col">
+              <dropdown-machine></dropdown-machine>
+            </div>                        
+          </div>                       
+        </div>     
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary" (click)="refreshChart()" [disabled]="loading">Atualizar</button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="amChart" [style.width.%]="100" [style.height.px]="500"></div>      
+    </main>
+  </div>
+</div>

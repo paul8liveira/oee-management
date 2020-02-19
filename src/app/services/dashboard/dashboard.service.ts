@@ -28,11 +28,12 @@ export class DashboardService extends BaseService {
             .pipe(catchError(this.handleError));
     }   
     
-    chart(date_ini: string, date_fin: string, ch_id: number, mc_cd: string): Observable<Dashboard["chart"][]> {
+    chart(date_ini: string, date_fin: string, ch_id: number, mc_cd: string, chart_type: number = 0): Observable<Dashboard["chart"][]> {
         let query = "?date_ini=" + date_ini 
             + "&date_fin=" + date_fin 
             + "&ch_id=" + ch_id 
-            + "&mc_cd=" + mc_cd;
+            + "&mc_cd=" + mc_cd
+            + "&chart_type=" + chart_type;
 
         let headers = new Headers({ 
             'Content-Type': 'application/json',

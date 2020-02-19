@@ -10,6 +10,7 @@ import { MachineProductionComponent } from './components/machine.production/mach
 import { SponsorComponent } from './components/sponsor/sponsor.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ProductComponent } from './components/product/product.component';
+import { GraphProductComponent } from './components/graph.product/graph.product.component';
 
 const appRoutes: Routes = [
     {
@@ -64,7 +65,12 @@ const appRoutes: Routes = [
       path: 'product',
       canActivate: [AuthGuard],
       component: ProductComponent
-    },                            
+    },   
+    {
+      path: 'graphproduct',
+      canActivate: [AuthGuard],
+      component: GraphProductComponent
+    },                              
     {
       path: '**',
       redirectTo: 'dashboard'

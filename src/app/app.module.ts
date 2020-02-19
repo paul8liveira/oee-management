@@ -23,6 +23,7 @@ import { UserService } from './services/user/user.service';
 import { SponsorModule } from './components/sponsor/sponsor.module';
 import { AlertModule } from './components/alert/alert.module';
 import { ProductModule } from './components/product/product.module';
+import { GraphProductModule } from './components/graph.product/graph.product.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProductModule } from './components/product/product.module';
     SponsorModule,
     AlertModule,
     ProductModule,
+    GraphProductModule,
     ToastModule.forRoot()
   ],
   providers: [

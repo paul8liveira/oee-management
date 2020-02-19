@@ -81,7 +81,13 @@
           <i-box class="feather"></i-box>
           Criar Produto
         </a>
-      </li>                                 
+      </li>   
+      <li class="nav-item">
+        <a [ngClass]="(linkActive=='graphproduct')?'nav-link active':'nav-link'" [routerLink]="['/graphproduct']">
+          <i-crosshair class="feather"></i-crosshair>
+          Apontar produto no gráfico
+        </a>
+      </li>                                    
     </ul>
     <!-- maquina -->
 
