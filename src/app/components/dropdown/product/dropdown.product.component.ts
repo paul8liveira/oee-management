@@ -17,6 +17,7 @@ import { Product } from '../../../models/product';
 })
 export class DropdownProductComponent extends BaseComponent implements OnInit {
   @Input() channel_id: number;
+  @Input() machine_code: string;
   @Output() emitChangeEvent = new EventEmitter();
   items: Array<Product> = [];
 
@@ -34,7 +35,7 @@ export class DropdownProductComponent extends BaseComponent implements OnInit {
   }
 
   load() {
-    this.productService.list(this.channel_id)
+    this.productService.list(this.channel_id, this.machine_code)
     .subscribe(
       result => {
         this.items = result;

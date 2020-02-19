@@ -12,6 +12,7 @@ import { DropdownMachineModule } from '../dropdown/machine/dropdown.machine.modu
 import { ProductModalComponent } from './product.modal.component';
 import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pause.reason.module';
 import { DateRangeModule } from '../dropdown/dateRange/date.range.module';
+import { DropdownProductModule } from '../dropdown/product/dropdown.product.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DateRangeModule } from '../dropdown/dateRange/date.range.module';
     DropdownChannelModule,
     DropdownMachineModule,
     DropdownPauseReasonModule,
-    DateRangeModule
+    DateRangeModule,
+    DropdownProductModule
   ],
   declarations: [ 
     GraphProductComponent,    

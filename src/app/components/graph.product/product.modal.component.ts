@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr';
-import { MachinePauseDash } from "../../models/machine.pause.dash";
 import { DashboardService } from "../../services/dashboard/dashboard.service";
+import { MachineProductDash } from "../../models/machine.product.dash";
 
 @Component({
-    selector: 'modal-content',
+    selector: 'modal-product',
     templateUrl: './product.modal.component.html'
   })
    
   export class ProductModalComponent implements OnInit {
-    pauses: Array<MachinePauseDash> = [];
+    products: Array<MachineProductDash> = [];
     title: string;
     channelId: number;
     machineCode: string;
@@ -28,7 +28,7 @@ import { DashboardService } from "../../services/dashboard/dashboard.service";
 
     confirm() {
       this.bsModalRef.hide();
-      this.dashboardService.addPause(this.pauses)
+      this.dashboardService.addProduct(this.products)
       .subscribe(
         result => {                 
         },
@@ -38,9 +38,9 @@ import { DashboardService } from "../../services/dashboard/dashboard.service";
       );
     }
 
-    setPauseReason($event) {
-      this.pauses.forEach(f => {
-        f.pause_reason_id = $event.id;
+    setProduct($event) {
+      this.products.forEach(f => {
+        f.product_id = $event.id;
       });
     }
   }

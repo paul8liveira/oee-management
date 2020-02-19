@@ -78,4 +78,6 @@ export const environment = {
   alertDeleteURL: `${serverURL}alert/delete`,  
   //product
   productURL: `${serverURL}product`,
+  //machine product
+  machineProductDashAddURL: `${serverURL}machineproductdash`, 
 };

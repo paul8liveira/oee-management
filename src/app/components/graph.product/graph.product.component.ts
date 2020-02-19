@@ -10,6 +10,7 @@ import * as moment from 'moment-timezone';
 import { MachinePauseDash } from '../../models/machine.pause.dash';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../services/dashboard/filter.service';
+import { MachineProductDash } from '../../models/machine.product.dash';
 
 @Component({
   selector: 'app-graph-product',
@@ -26,7 +27,7 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
   public loading: boolean = false;
 
   bsModalRef: BsModalRef;
-  pauses: Array<MachinePauseDash> = [];
+  products: Array<MachineProductDash> = [];
 
   constructor(
     private dashboardService: DashboardService,    
@@ -101,7 +102,8 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
       this.formatDateTimeMySQL(this.dateRange[0], true), 
       this.formatDateTimeMySQL(this.dateRange[1], false), 
       this.channelId, 
-      this.machineCode
+      this.machineCode,
+      1
     )
     .subscribe(
       result => {   
@@ -173,16 +175,16 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
                 "verticalPadding": 20
               },
               "balloonFunction": function(graphDataItem, graph) {
-                let pauseReason = graphDataItem.dataContext.pause_reason;
-                let pauseInMin = graphDataItem.dataContext.pause_in_minutes;
+                let product = graphDataItem.dataContext.product_name;
+                let amount = graphDataItem.dataContext.amount;
                 let text = graphDataItem.dataContext.chart_tooltip_desc;
                 let data = graphDataItem.dataContext.data;
                 text = text.replace("__value", data) || "[[value]]";
-                if(pauseReason) {
-                  text += `<br/><b>Motivo pausa: ${pauseReason}</b>`;
+                if(product) {
+                  text += `<br/><b>Produto: ${product}</b>`;
                 }
-                if(pauseInMin) {
-                  text += `<br/><b>Pausa de: ${pauseInMin} minutos</b>`;
+                if(amount) {
+                  text += `<br/><b>Quantidade produzida: ${amount}</b>`;
                 }                
                 return text;
               }
@@ -209,7 +211,7 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
             "selectWithoutZooming": true,
             "listeners": [{
               "event": "selected",
-              "method": this.selectedPause.bind(this)
+              "method": this.selectedProducts.bind(this)
             }]                    
           },
           "categoryField": "labels",
@@ -233,20 +235,20 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
       };
   }  
 
-  selectedPause(event) {
-    this.pauses = [];
+  selectedProducts(event) {
+    this.products = [];
 
     let dataStartPoint = event.chart.dataProvider[event.startIndex];
     let dataEndPoint = event.chart.dataProvider[event.endIndex];    
         
-    let start = new MachinePauseDash();
+    let start = new MachineProductDash();
     start.channel_id = this.channelId;
     start.machine_code = this.machineCode;
     start.date_ref = moment(dataStartPoint.labels).utc().format("YYYY-MM-DD HH:mm:ss");
     start.date_formated = moment(dataStartPoint.labels).utc().format("DD/MM/YYYY HH:mm:ss");
     start.value = dataStartPoint.data;
     
-    let end = new MachinePauseDash();
+    let end = new MachineProductDash();
     end.channel_id = this.channelId;
     end.machine_code = this.machineCode;
     end.date_ref = moment(dataEndPoint.labels).utc().format("YYYY-MM-DD HH:mm:ss");
@@ -254,19 +256,19 @@ export class GraphProductComponent extends BaseComponent implements OnInit, OnDe
     end.value = dataEndPoint.data; 
     end.date_dif = this.getDatetimeDiffInMin(end.date_ref, start.date_ref);   
 
-    this.pauses.push(start);     
-    this.pauses.push(end);  
+    this.products.push(start);     
+    this.products.push(end);  
 
     const initialState = {
-      pauses: this.pauses,
-      title: `Confirmar pausa selecionada de ${end.date_dif} minutos`,
+      products: this.products,
+      title: `Lançar quantidade de produto produzido em ${end.date_dif} minutos`,
       channelId: this.channelId,
       machineCode: this.machineCode
     };
     this.bsModalRef = this.modalService.show(ProductModalComponent, {initialState});
 
   }
-  removePause() {
-    this.pauses = [];
+  removeProduct() {
+    this.products = [];
   }    
 }

@@ -8,6 +8,7 @@ import { Dashboard } from '../../models/dashboard';
 import { environment } from '../../../environments/environment';
 import { BaseService } from '../base.service';
 import { MachinePauseDash } from '../../models/machine.pause.dash';
+import { MachineProductDash } from '../../models/machine.product.dash';
 
 @Injectable()
 export class DashboardService extends BaseService {
@@ -155,7 +156,6 @@ export class DashboardService extends BaseService {
             .pipe(catchError(this.handleError));
     }    
     
-    //sei la pq essa bosta nao funciona em outro serviço
     addPause(machinePause: MachinePauseDash[]): Observable<any> {
         let headers = new Headers({ 
             'Content-Type': 'application/json',
@@ -163,6 +163,17 @@ export class DashboardService extends BaseService {
         });                
         return this.http.post(environment.machinePauseDashAddURL, 
             JSON.stringify(machinePause), { headers: headers })
+            .map(res => res.json())
+            .pipe(catchError(this.handleError));            
+    }
+    
+    addProduct(machineProduct: MachineProductDash[]): Observable<any> {
+        let headers = new Headers({ 
+            'Content-Type': 'application/json',
+            'x-access-token': this.getToken()
+        });                
+        return this.http.post(environment.machineProductDashAddURL, 
+            JSON.stringify(machineProduct), { headers: headers })
             .map(res => res.json())
             .pipe(catchError(this.handleError));            
     }    

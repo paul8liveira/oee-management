@@ -19,23 +19,23 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let pause of pauses; let i = index">
+            <tr *ngFor="let product of products; let i = index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{pause.date_formated}}</td>
-                <td>{{pause.value}}</td>
+                <td>{{product.date_formated}}</td>
+                <td>{{product.value}}</td>
             </tr>
             <tr class="table-danger">
-                <td colspan="3"><b>Os pontos selecionados representam uma pausa de {{pauses[1].date_dif}} minutos.</b></td>
+                <td colspan="3"><b>Os pontos selecionados representam um intervalo de {{products[1].date_dif}} minutos.</b></td>
             </tr>
         </tbody>
     </table>  
     <div class="row">
         <div class="col">
-            <dropdown-pause-reason 
-                [channelId]="channelId" 
-                [machineCode]="machineCode"
-                (emitChangeEvent)="setPauseReason($event)">
-            </dropdown-pause-reason>
+            <dropdown-product 
+                [channel_id]="channelId" 
+                [machine_code]="machineCode"
+                (emitChangeEvent)="setProduct($event)">
+            </dropdown-product>
         </div>
     </div>
     
@@ -43,9 +43,9 @@
 <div class="modal-footer">
     <button 
         class="btn btn-sm btn-outline-primary" 
-        [disabled]="!pauses[0].pause_reason_id" 
+        [disabled]="!products[0].product_id" 
         (click)="confirm()">
-        Confirmar lançamento de pausa
+        Confirmar lançamento de produto
     </button>
     <button type="button" class="btn btn-outline-secondary" (click)="bsModalRef.hide()">Fechar</button>
 </div>

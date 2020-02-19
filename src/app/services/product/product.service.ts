@@ -14,14 +14,14 @@ export class ProductService extends BaseService {
         super();
     }
 
-    list(channelId: number): Observable<Product[]> {
+    list(channelId: number, machine_code: string = ''): Observable<Product[]> {
         let headers = new Headers({ 
             'Content-Type': 'application/json',
             'x-access-token': this.getToken()
         });
         let options = new RequestOptions({headers: headers});
 
-        let url = `${environment.productURL}/${channelId}`;
+        let url = `${environment.productURL}/${channelId}/${machine_code}`;
         return this.http.get(url, options)
             .map(res => res.json())
             .pipe(catchError(this.handleError));
