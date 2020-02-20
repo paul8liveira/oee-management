@@ -37,6 +37,12 @@
                 (emitChangeEvent)="setProduct($event)">
             </dropdown-product>
         </div>
+        <div class="col">
+            <input 
+                [(ngModel)]="amount" 
+                type="number" step="0.01"
+                class="form-control">
+        </div>        
     </div>
     
 </div>

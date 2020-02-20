@@ -14,6 +14,7 @@ import { MachineProductDash } from "../../models/machine.product.dash";
     title: string;
     channelId: number;
     machineCode: string;
+    amount: string;
    
     constructor(
       public bsModalRef: BsModalRef,
@@ -28,6 +29,11 @@ import { MachineProductDash } from "../../models/machine.product.dash";
 
     confirm() {
       this.bsModalRef.hide();
+
+      this.products.forEach(f => {
+        f.amount = this.amount;
+      });
+
       this.dashboardService.addProduct(this.products)
       .subscribe(
         result => {                 

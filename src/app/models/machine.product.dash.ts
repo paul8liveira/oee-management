@@ -9,6 +9,7 @@ export class MachineProductDash extends BaseModel {
   value: string;
   product_id: number;
   date_dif: number;
+  amount: string;
   
   constructor() {
     super();
