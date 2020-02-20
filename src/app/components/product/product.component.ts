@@ -20,7 +20,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   editType = "fullRow";
   context;
   frameworkComponents;   
-  private channel_id: number;
+  public channel_id: number;
   public machinelist: any = [];
 
   constructor(private productService: ProductService, 
