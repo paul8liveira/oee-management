@@ -257,6 +257,7 @@ export class MachineProductionChartPauseParetoComponent extends BaseComponent im
           "fillColors": "#1a3a5a",
           "balloonFunction": function(graphDataItem, graph) {
             let text = `
+              Produção: ${graphDataItem.dataContext.amount}
               <br>Produto: ${graphDataItem.dataContext.product_name}
               <br>Total: ${graphDataItem.dataContext.count}
             `;                
