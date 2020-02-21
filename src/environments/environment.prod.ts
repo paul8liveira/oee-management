@@ -75,4 +75,5 @@ export const environment = {
   productURL: `${serverURL}product`,  
   //machine product
   machineProductDashAddURL: `${serverURL}machineproductdash`,  
+  machineProductChartParetoURL: `${serverURL}machineproductdash/pareto`,
 };

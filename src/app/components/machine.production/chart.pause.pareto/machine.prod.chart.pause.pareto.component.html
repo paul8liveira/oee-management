@@ -1,5 +1,43 @@
-<div class="card">
-    <div class="card-body">      
-      <div id="amChartPareto" [style.width.%]="100" [style.height.px]="300"></div>
-    </div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+    <a 
+      class="nav-item nav-link active" 
+      id="nav-pareto-pausa-tab" 
+      data-toggle="tab" 
+      href="#nav-pareto-pausa" 
+      role="tab" 
+      aria-controls="nav-pareto-pausa" 
+      aria-selected="true"
+    >
+      <div class="fa fa-spinner fa-spin" *ngIf="refreshing"></div>
+      Diagrama de pareto de pausas        
+    </a>  
+
+    <a 
+      class="nav-item nav-link" 
+      id="nav-pareto-produto-tab" 
+      data-toggle="tab" href="#nav-pareto-produto" 
+      role="tab" 
+      aria-controls="nav-pareto-produto" 
+      aria-selected="false"
+    >
+      <div class="fa fa-spinner fa-spin" *ngIf="refreshing"></div>
+      Diagrama de pareto de produtos
+    </a>
+
+  </div>
+
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+
+  <div class="tab-pane fade show active" id="nav-pareto-pausa" role="tabpanel" aria-labelledby="nav-pareto-pausa-tab">
+    <div id="amChartParetoPausa" [style.width.%]="100" [style.height.px]="300"></div>
+  </div>
+
+  <div class="tab-pane fade show active" id="nav-pareto-produto" role="tabpanel" aria-labelledby="nav-pareto-produto-tab">
+    <div id="amChartParetoProduto" [style.width.%]="100" [style.height.px]="300"></div>
+  </div>  
+
 </div>
