@@ -29,7 +29,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     super();                
 
     this.channel_id = parseInt(localStorage.getItem('channelId'));
-    this.product = new Product(this.channel_id);
+    this.product = new Product(this.channel_id, null);
 
     this.toastr.setRootViewContainerRef(vcr);     
   }
@@ -70,7 +70,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
       }
     );
-    this.product = new Product(this.channel_id);
+    const machineCode = this.product.machine_code;
+    this.product = new Product(this.channel_id, machineCode);
   }
 
   update(data) {

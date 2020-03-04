@@ -53,7 +53,8 @@ export const environment = {
   //docs
   docsURL: serverURL,  
   //pause reason
-  pauseReasonDropdownURL: `${serverURL}pausereason/dropdown/:channelId/:machineCode`,
+  //pauseReasonDropdownURL: `${serverURL}pausereason/dropdown/:channelId/:machineCode`,
+  pauseReasonDropdownURL: `${serverURL}pausereason/dropdown/:channelId`,
   //shift
   shiftDropdownURL: `${serverURL}shift/dropdown`,  
   //machine shift

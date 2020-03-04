@@ -8,8 +8,9 @@ export class Product extends BaseModel {
   machine_code: string;
   machine_name: string;
   
-  constructor(channel_id: number) {
+  constructor(channel_id: number, machine_code: string) {
     super();
     this.channel_id = channel_id;
+    this.machine_code = machine_code;
   }  
 }
