@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../base.component';
 import { Alert } from '../../models/alert';
 import { AlertService } from '../../services/alert/alert.service';
+import { FilterService } from '../../services/dashboard/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent extends BaseComponent implements OnInit {
+export class AlertComponent extends BaseComponent implements OnInit, OnDestroy {
   alert: Alert = new Alert();
   gridApi;
   gridColumnApi;
@@ -17,21 +19,24 @@ export class AlertComponent extends BaseComponent implements OnInit {
   paginationPageSize = 10;
   rowSelection = "multiple";
   editType = "fullRow";
-  context; 
+  context;
   channelId: number;
+  machineCode: string;
+  private unsubscribe: Subscription[] = [];
 
-  constructor(private alertService: AlertService, 
-              public toastr: ToastsManager, 
-              vcr: ViewContainerRef) {
+  constructor(private alertService: AlertService,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef,
+              private filterService: FilterService) {
     super();
     this.channelId = parseInt(localStorage.getItem('channelId'));
-    this.toastr.setRootViewContainerRef(vcr);     
+    this.toastr.setRootViewContainerRef(vcr);
     this.columnDefs = [
       {
         headerName: "Responsável",
         field: "sponsor_name",
         editable: false,
-      },   
+      },
       {
         headerName: "Motivo da pausa",
         field: "pause_reason_name",
@@ -41,13 +46,17 @@ export class AlertComponent extends BaseComponent implements OnInit {
         headerName: "Tempo da pausa",
         field: "pause_time",
         editable: false,
-      }                       
-    ];    
+      }
+    ];
     this.context = { componentParent: this };
-    
   }
 
   ngOnInit() {
+    this.listenFilters();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.forEach(f => f.unsubscribe());
   }
 
   onGridReady(params) {
@@ -61,26 +70,26 @@ export class AlertComponent extends BaseComponent implements OnInit {
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
-      }); 
-    params.api.sizeColumnsToFit();   
+      });
+    params.api.sizeColumnsToFit();
   }
   onCellValueChanged(event) {
     this.update(event.data);
-  } 
+  }
 
   setPauseReason($event) {
     this.alert.pause_reason_id = $event.id;
-  }  
+  }
   setSponsor($event) {
     this.alert.sponsor_id = $event.sponsor_id;
-  }    
+  }
   setAlertPauseTime($event) {
     this.alert.pause_time = $event;
   }
 
   add(event) {
     event.preventDefault();
-    
+
     this.alertService.add(this.alert)
     .subscribe(
       result => {
@@ -90,7 +99,7 @@ export class AlertComponent extends BaseComponent implements OnInit {
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
       }
-    );        
+    );
   }
 
   update(data: Alert) {
@@ -100,12 +109,12 @@ export class AlertComponent extends BaseComponent implements OnInit {
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
       }
-    );    
+    );
   }
 
   delete() {
-    let selectedData = this.gridApi.getSelectedRows();  
-    
+    let selectedData = this.gridApi.getSelectedRows();
+
     if(selectedData.length > 0) {
       selectedData.forEach(row => {
         this.alertService.delete(row)
@@ -116,9 +125,16 @@ export class AlertComponent extends BaseComponent implements OnInit {
           error => {
             this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
           }
-        );         
-      });      
+        );
+      });
     }
+  }
+
+  private listenFilters() {
+		const subsMachine = this.filterService.onMachineUpdate$.subscribe(machineCode => {
+      this.machineCode = machineCode;
+		});
+		this.unsubscribe.push(subsMachine);
   }
 
 }

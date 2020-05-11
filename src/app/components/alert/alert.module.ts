@@ -8,6 +8,8 @@ import { AlertComponent } from './alert.component';
 import { DropdownPauseReasonModule } from '../dropdown/pause.reason/dropdown.pause.reason.module';
 import { DropdownSponsorModule } from '../dropdown/sponsor/dropdown.sponsor.module';
 import { DropdownAlertPauseTimeModule } from '../dropdown/alertPauseTime/dropdown.alertPauseTime.module';
+import { DropdownMachineModule } from '../dropdown/machine/dropdown.machine.module';
+import { DropdownChannelModule } from '../dropdown/channel/dropdown.channel.module';
 
 @NgModule({
   imports: [
@@ -17,16 +19,18 @@ import { DropdownAlertPauseTimeModule } from '../dropdown/alertPauseTime/dropdow
     AgGridModule,
     DropdownPauseReasonModule,
     DropdownSponsorModule,
-    DropdownAlertPauseTimeModule
+    DropdownAlertPauseTimeModule,
+    DropdownMachineModule,
+    DropdownChannelModule
   ],
   declarations: [
     AlertComponent
   ],
   exports: [ AlertComponent ],
-  providers: [     
-    AlertService 
+  providers: [
+    AlertService
   ],
    entryComponents: [
-  ],     
+  ],
 })
 export class AlertModule { }
