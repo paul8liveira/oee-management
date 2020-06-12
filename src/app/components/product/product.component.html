@@ -3,7 +3,7 @@
   <div class="row">
     <app-menu linkActive="product"></app-menu>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 margin-top-45">
-      <div class="row margin-bottom-5px">        
+      <div class="row margin-bottom-5px">
         <div class="col-md-12 order-md-1">
 
           <div class="card">
@@ -14,16 +14,16 @@
             </div>
 
             <div class="card-block padding-10px">
-              <form 
-                name="form" 
-                (ngSubmit)="f.form.valid && add($event)" #f="ngForm" novalidate 
+              <form
+                name="form"
+                (ngSubmit)="f.form.valid && add($event)" #f="ngForm" novalidate
                 class="needs-validation">
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="machine_code">Máquina</label>
-                    <dropdown-machine-no-group 
-                      [channel_id]="channel_id" 
+                    <dropdown-machine-no-group
+                      [channel_id]="channel_id"
                       (emitChangeEvent)="setMachineCode($event)"
                       (emitList)="getMachineList($event)">
                     </dropdown-machine-no-group>
@@ -31,33 +31,57 @@
 
                   <div class="col-md-6 mb-3">
                     <label for="name">Produto</label>
-                    <input 
-                      name="name" 
-                      [(ngModel)]="product.name" 
-                      #name="ngModel" 
-                      type="text" 
+                    <input
+                      name="name"
+                      [(ngModel)]="product.name"
+                      #name="ngModel"
+                      type="text"
                       class="form-control form-control-no-border"
                       required>
-                  </div>                          
+                  </div>
                 </div>
-                
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="cycle_time">Tempo de ciclo</label>
+                    <input
+                      numberOnly
+                      name="cycle_time"
+                      [(ngModel)]="product.cycle_time"
+                      #cycle_time="ngModel"
+                      type="text"
+                      class="form-control form-control-no-border">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="measure_unit">Unidade de medida</label>
+                    <input
+                      name="measure_unit"
+                      [(ngModel)]="product.measure_unit"
+                      #measure_unit="ngModel"
+                      type="text"
+                      class="form-control form-control-no-border"
+                      required>
+                  </div>
+                </div>
+
                 <div class="row row-vcenter">
                   <div class="col-md-2 mb-3 vcenter">
                     <label for="next_maintenance">&nbsp;</label>
-                    <button 
+                    <button
                       [disabled]="!f.form.valid"
-                      class="btn btn-no-border btn-primary btn-sm btn-block" 
+                      class="btn btn-no-border btn-primary btn-sm btn-block"
                       type="submit">
                       Adicionar
                     </button>
                   </div>
                 </div>
-                <div 
-                  *ngIf="product.message" 
+                <div
+                  *ngIf="product.message"
                   [ngClass]="(product.error) ? 'alert alert-danger alert-margin' : 'alert alert-success alert-margin'">
                   {{product.message}}
-                </div>    
-              </form>                  
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -65,17 +89,17 @@
       <div class="row margin-bottom-5px">
         <div class="col-md-12 order-md-1">
           <div class="col-md-2 float-right margin-bottom-5px">
-            <button 
+            <button
               (click)="delete()"
-              class="btn btn-no-border btn-primary btn-sm btn-block" 
+              class="btn btn-no-border btn-primary btn-sm btn-block"
               type="button">
               Remover selecionada
             </button>
           </div>
-        </div>  
-      </div>      
+        </div>
+      </div>
 
-      <div class="table-responsive">        
+      <div class="table-responsive">
         <ag-grid-angular #agGrid
           style="width: 100%; height: 450px;"
           id="myGrid"
@@ -89,14 +113,13 @@
           (gridReady)="onGridReady($event)"
           enableColResize
           enableSorting
-          enableFilter 
+          enableFilter
           [pagination]="true"
           [paginationPageSize]="paginationPageSize"
           (cellValueChanged)="onCellValueChanged($event)"
           [context]="context"
-          [frameworkComponents]="frameworkComponents"     
-          [rowHeight]="35"          
-        ></ag-grid-angular>        
+          [rowHeight]="35"
+        ></ag-grid-angular>
 
       </div>
     </main>

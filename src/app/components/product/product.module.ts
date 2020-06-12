@@ -8,24 +8,25 @@ import { ProductService } from '../../services/product/product.service';
 import { ProductComponent } from './product.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DropdownMachineModule } from '../dropdown/machine/dropdown.machine.module';
-
+import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     AgGridModule,
     FormsModule,
-    AngularFontAwesomeModule,   
-    DropdownMachineModule
+    AngularFontAwesomeModule,
+    DropdownMachineModule,
+    DirectivesModule
   ],
-  declarations: [ 
-    ProductComponent
+  declarations: [
+    ProductComponent,
   ],
-  exports: [ 
+  exports: [
     ProductComponent
   ],
   providers: [ ProductService ],
   entryComponents: [
-  ],  
+  ],
 })
 export class ProductModule { }

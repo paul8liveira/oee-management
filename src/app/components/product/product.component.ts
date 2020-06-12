@@ -19,32 +19,32 @@ export class ProductComponent extends BaseComponent implements OnInit {
   rowSelection = "multiple";
   editType = "fullRow";
   context;
-  frameworkComponents;   
   public channel_id: number;
   public machinelist: any = [];
 
-  constructor(private productService: ProductService, 
-              public toastr: ToastsManager, 
+  constructor(private productService: ProductService,
+              public toastr: ToastsManager,
               public vcr: ViewContainerRef) {
-    super();                
+    super();
 
     this.channel_id = parseInt(localStorage.getItem('channelId'));
     this.product = new Product(this.channel_id, null);
 
-    this.toastr.setRootViewContainerRef(vcr);     
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
+    this.components = { numericCellEditor: this.getNumericCellEditor() };
   }
 
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.list();    
+    this.list();
   }
 
   list() {
-    this.productService.list(this.channel_id) 
+    this.productService.list(this.channel_id)
     .subscribe(
       result => {
         this.gridApi.setRowData(result);
@@ -52,16 +52,16 @@ export class ProductComponent extends BaseComponent implements OnInit {
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
-      });     
+      });
   }
 
   onCellValueChanged(event) {
     this.update(event.data);
-  } 
+  }
 
   add(event) {
-    event.preventDefault();    
-    this.productService.add(this.product) 
+    event.preventDefault();
+    this.productService.add(this.product)
     .subscribe(
       result => {
         this.gridApi.updateRowData({ add: [result] });
@@ -79,12 +79,12 @@ export class ProductComponent extends BaseComponent implements OnInit {
     .subscribe(
       result => {},
       error => this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true })
-    );    
+    );
   }
 
   delete() {
-    let selectedData = this.gridApi.getSelectedRows();  
-    
+    let selectedData = this.gridApi.getSelectedRows();
+
     if(selectedData.length > 0) {
       selectedData.forEach(row => {
 
@@ -96,10 +96,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
           error => {
             this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
           }
-        );         
-      });      
+        );
+      });
     }
-  }  
+  }
 
   setMachineCode(event) {
     this.product.machine_code = event;
@@ -107,7 +107,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
   getMachineList(list) {
     this.machinelist = list.reduce((obj, item) => {
-      obj[item["code"]] = item.dropdown_label;
+      obj[item["code"]] = item.name;
       return obj;
     }, {});
 
@@ -115,7 +115,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
       {
         headerName: "Canal",
         field: "channel_name",
-        editable: false         
+        editable: false
       },
       {
         headerName: "Máquina",
@@ -124,14 +124,24 @@ export class ProductComponent extends BaseComponent implements OnInit {
         cellEditor: "agSelectCellEditor",
         cellEditorParams: { values: this.extractValues(this.machinelist) },
         refData: this.machinelist
-      },    
+      },
       {
         headerName: "Produto",
         field: "name",
         editable: true
       },
-    ];   
-    this.context = { componentParent: this };    
+      {
+        headerName: "Tempo de ciclo",
+        field: "cycle_time",
+        editable: true,
+        cellEditor: "numericCellEditor"
+      },
+      {
+        headerName: "Unidade de Medida",
+        field: "measure_unit",
+        editable: true
+      },
+    ];
+    this.context = { componentParent: this };
   }
-
 }

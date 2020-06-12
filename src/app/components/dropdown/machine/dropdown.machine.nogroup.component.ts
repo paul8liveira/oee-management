@@ -1,6 +1,6 @@
-import { 
-  Component, 
-  ViewContainerRef, 
+import {
+  Component,
+  ViewContainerRef,
   OnInit,
   Input,
   Output,
@@ -11,7 +11,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { BaseComponent } from '../../base.component';
 
 @Component({
-  selector: 'dropdown-machine-no-group',  
+  selector: 'dropdown-machine-no-group',
   templateUrl: './dropdown-machine-no-group.html',
 })
 export class DropdownMachineNoGroupComponent extends BaseComponent implements OnInit {
@@ -21,17 +21,17 @@ export class DropdownMachineNoGroupComponent extends BaseComponent implements On
 
   items: Array<any> = [];
   selectedMachineCode: any;
-  
+
   constructor(
     private machineService: MachineService,
-    public toastr: ToastsManager, 
+    public toastr: ToastsManager,
     vcr: ViewContainerRef,
   ) {
     super();
-    this.toastr.setRootViewContainerRef(vcr);              
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
-  ngOnInit() {      
+  ngOnInit() {
     this.load(this.channel_id);
   }
 
@@ -42,20 +42,20 @@ export class DropdownMachineNoGroupComponent extends BaseComponent implements On
         this.items = result;
         if(this.items.length > 0) {
           this.selectedMachineCode = this.items[0].code;
-          this.refreshValue(this.items[0]);          
+          this.refreshValue(this.items[0]);
         }
         this.emitList.emit(result);
       },
       error => {
         this.toastr.error(error, "Erro!", { enableHTML: true, showCloseButton: true });
-      });     
+      });
   }
 
   public refreshValue(value:any) {
-    this.selectedMachineCode = value.code; 
-    this.emitChangeEvent.emit(value.code); 
-  } 
-  
+    this.selectedMachineCode = value.code;
+    this.emitChangeEvent.emit(value.code);
+  }
+
   public get getItems() {
     return this.items;
   }

@@ -1,8 +1,8 @@
 <div class="btn-group">
     <ng-select
         [items]="items"
-        bindLabel="dropdown_label"
-        bindValue="code" 
+        bindLabel="name"
+        bindValue="code"
         placeholder="Selecione uma máquina"
         (add)="refreshValue($event)"
         [(ngModel)]="selectedMachineCode"

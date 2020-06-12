@@ -9,7 +9,6 @@ import { ChannelComponent } from './channel.component';
 import { DropdownStatusModule } from '../dropdown/status/dropdown.status.module';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
-import { NumberOnlyDirective } from '../../directives/number.directive';
 import { DropdownYesNoModule } from '../dropdown/YesNo/dropdown.yesno.module';
 import { ChannelGridButtonRenderer } from './grid/channel.grid.buttons.component';
 import { MachineModalComponent } from './modal/machine.modal.component';
@@ -19,6 +18,7 @@ import { DropdownMachineModule } from '../dropdown/machine/dropdown.machine.modu
 import { ConfigModalComponent } from './modal/config.modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SQLModalComponent } from './modal/sql.modal.component';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   imports: [
@@ -27,24 +27,24 @@ import { SQLModalComponent } from './modal/sql.modal.component';
     FormsModule,
     DropdownStatusModule,
     AgGridModule.withComponents([ChannelGridButtonRenderer]),
-    OwlDateTimeModule, 
+    OwlDateTimeModule,
     OwlNativeDateTimeModule,
     DropdownYesNoModule,
     AngularFontAwesomeModule,
     ModalModule.forRoot(),
     DropdownMachineModule,
     ReactiveFormsModule,
+    DirectivesModule
   ],
-  declarations: [ 
-    ChannelComponent,    
-    NumberOnlyDirective,
+  declarations: [
+    ChannelComponent,
     MachineModalComponent,
     ConfigModalComponent,
     SQLModalComponent,
-    ChannelGridButtonRenderer    
+    ChannelGridButtonRenderer
   ],
   exports: [ ChannelComponent ],
-  providers: [ 
+  providers: [
     ChannelService,
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'pr-br' },
    ],
@@ -52,6 +52,6 @@ import { SQLModalComponent } from './modal/sql.modal.component';
     MachineModalComponent,
     ConfigModalComponent,
     SQLModalComponent
-  ],      
+  ],
 })
 export class ChannelModule { }
