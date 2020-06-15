@@ -134,7 +134,6 @@ export class ProductComponent extends BaseComponent implements OnInit {
         headerName: "Tempo de ciclo",
         field: "cycle_time",
         editable: true,
-        cellEditor: "numericCellEditor"
       },
       {
         headerName: "Unidade de Medida",
