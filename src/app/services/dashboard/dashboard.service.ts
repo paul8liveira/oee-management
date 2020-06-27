@@ -1,180 +1,250 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, ResponseContentType, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
-import { catchError } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import {
+  Http,
+  Headers,
+  ResponseContentType,
+  RequestOptions,
+} from "@angular/http";
+import { Observable } from "rxjs";
+import "rxjs/add/operator/map";
+import { catchError } from "rxjs/operators";
 
-import { Dashboard } from '../../models/dashboard';
-import { environment } from '../../../environments/environment';
-import { BaseService } from '../base.service';
-import { MachinePauseDash } from '../../models/machine.pause.dash';
-import { MachineProductDash } from '../../models/machine.product.dash';
+import { Dashboard } from "../../models/dashboard";
+import { environment } from "../../../environments/environment";
+import { BaseService } from "../base.service";
+import { MachinePauseDash } from "../../models/machine.pause.dash";
+import { MachineProductDash } from "../../models/machine.product.dash";
 
 @Injectable()
 export class DashboardService extends BaseService {
+  constructor(private http: Http) {
+    super();
+  }
 
-    constructor(private http: Http) {
-        super();
-    }
+  lastFeed(
+    dateIni: string,
+    dateFin: string,
+    channelId: number,
+    machineCode: string,
+    userId: number
+  ): Observable<Dashboard> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({ headers: headers });
 
-    lastFeed(dateIni: string, dateFin: string, channelId: number, machineCode: string, userId: number): Observable<Dashboard> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
+    return this.http
+      .get(
+        environment.lastFeedURL +
+          "?dateIni=" +
+          dateIni +
+          "&dateFin=" +
+          dateFin +
+          "&ch_id=" +
+          channelId.toString() +
+          "&mc_cd=" +
+          machineCode +
+          "&userId=" +
+          userId.toString(),
+        options
+      )
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
 
-        return this.http.get(environment.lastFeedURL + "?dateIni=" + dateIni + "&dateFin=" + dateFin + "&ch_id=" + channelId.toString() + "&mc_cd=" + machineCode + "&userId=" + userId.toString(), options)
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));
-    }   
-    
-    chart(date_ini: string, date_fin: string, ch_id: number, mc_cd: string, chart_type: number = 0): Observable<Dashboard["chart"][]> {
-        let query = "?date_ini=" + date_ini 
-            + "&date_fin=" + date_fin 
-            + "&ch_id=" + ch_id 
-            + "&mc_cd=" + mc_cd
-            + "&chart_type=" + chart_type;
+  chart(
+    date_ini: string,
+    date_fin: string,
+    ch_id: number,
+    mc_cd: string,
+    chart_type: number = 0
+  ): Observable<Dashboard["chart"][]> {
+    let query =
+      "?date_ini=" +
+      date_ini +
+      "&date_fin=" +
+      date_fin +
+      "&ch_id=" +
+      ch_id +
+      "&mc_cd=" +
+      mc_cd +
+      "&chart_type=" +
+      chart_type;
 
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(environment.chartURL + query, options)
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));
-    }
+    return this.http
+      .get(environment.chartURL + query, options)
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
 
-    exportChartExcel(date_ini: string, date_fin: string, ch_id: number, mc_cd: string) {
-        let params = {
-            date_ini: date_ini, 
-            date_fin: date_fin, 
-            ch_id: ch_id, 
-            mc_cd: mc_cd
+  exportChartExcel(
+    date_ini: string,
+    date_fin: string,
+    ch_id: number,
+    mc_cd: string
+  ) {
+    let params = {
+      date_ini: date_ini,
+      date_fin: date_fin,
+      ch_id: ch_id,
+      mc_cd: mc_cd,
+    };
+
+    let headers = new Headers({
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({
+      headers: headers,
+      responseType: ResponseContentType.Blob,
+      search: params,
+    });
+
+    return this.http
+      .get(environment.exportChartExcelURL, options)
+      .map((res) => {
+        return {
+          filename: new Date().getTime() + ".xlsx",
+          data: res.blob(),
         };
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-        let headers = new Headers({ 
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({
-            headers: headers,
-            responseType: ResponseContentType.Blob,
-            search: params             
-        });
-        
-        return this.http.get(environment.exportChartExcelURL, options)
-        .map(res => {
-            return {
-              filename: (new Date().getTime()) + '.xlsx',
-              data: res.blob()
-            };
-        })
-        .pipe(catchError(this.handleError));        
-    }
+  exportProductionExcel(date_ini: string, date_fin: string, ch_id: number) {
+    let params = {
+      dateIni: date_ini,
+      dateFin: date_fin,
+      ch_id: ch_id,
+    };
 
-    exportProductionExcel(date_ini: string, date_fin: string, ch_id: number) {
-        let params = {
-            dateIni: date_ini, 
-            dateFin: date_fin, 
-            ch_id: ch_id
+    let headers = new Headers({
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({
+      headers: headers,
+      responseType: ResponseContentType.Blob,
+      search: params,
+    });
+
+    return this.http
+      .get(environment.exportProductionExcelURL, options)
+      .map((res) => {
+        return {
+          filename: new Date().getTime() + ".xlsx",
+          data: res.blob(),
         };
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-        let headers = new Headers({ 
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({
-            headers: headers,
-            responseType: ResponseContentType.Blob,
-            search: params             
-        });
-        
-        return this.http.get(environment.exportProductionExcelURL, options)
-        .map(res => {
-            return {
-              filename: (new Date().getTime()) + '.xlsx',
-              data: res.blob()
-            };
-        })
-        .pipe(catchError(this.handleError));        
-    }    
+  exportPauseExcel(
+    date_ini: string,
+    date_fin: string,
+    ch_id: number,
+    mc_cd: string
+  ) {
+    let params = {
+      dateIni: date_ini,
+      dateFin: date_fin,
+      ch_id: ch_id,
+      mc_cd: mc_cd,
+    };
 
-    exportPauseExcel(date_ini: string, date_fin: string, ch_id: number, mc_cd: string) {
-        let params = {
-            dateIni: date_ini, 
-            dateFin: date_fin, 
-            ch_id: ch_id, 
-            mc_cd: mc_cd
+    let headers = new Headers({
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({
+      headers: headers,
+      responseType: ResponseContentType.Blob,
+      search: params,
+    });
+
+    return this.http
+      .get(environment.exportPauseExcelURL, options)
+      .map((res) => {
+        return {
+          filename: new Date().getTime() + ".xlsx",
+          data: res.blob(),
         };
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-        let headers = new Headers({ 
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({
-            headers: headers,
-            responseType: ResponseContentType.Blob,
-            search: params             
-        });
-        
-        return this.http.get(environment.exportPauseExcelURL, options)
-        .map(res => {
-            return {
-              filename: (new Date().getTime()) + '.xlsx',
-              data: res.blob()
-            };
-        })
-        .pipe(catchError(this.handleError));        
-    }
+  productionCount(
+    dateIni: string,
+    dateFin: string,
+    channelId: number
+  ): Observable<any> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({ headers: headers });
 
-    productionCount(dateIni: string, dateFin: string, channelId: number): Observable<any> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
+    let params = `${
+      environment.productionURL2
+    }?dateIni=${dateIni}&dateFin=${dateFin}&ch_id=${channelId.toString()}`;
+    return this.http
+      .get(params, options)
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
 
-        let params = `${environment.productionURL2}?dateIni=${dateIni}&dateFin=${dateFin}&ch_id=${channelId.toString()}`;
-        return this.http.get(params, options)
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));
-    }
+  productionOEE(
+    dateIni: string,
+    dateFin: string,
+    channelId: number,
+    machineCode: string = null
+  ): Observable<any> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({ headers: headers });
 
-    productionOEE(dateIni: string, dateFin: string, channelId: number, machineCode: string = null): Observable<any> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
+    let params = `${
+      environment.productionOEEURL
+    }?dateIni=${dateIni}&dateFin=${dateFin}&ch_id=${channelId.toString()}`;
+    if (machineCode) params += `&machineCode=${machineCode}`;
 
-        let params = `${environment.productionOEEURL}?dateIni=${dateIni}&dateFin=${dateFin}&ch_id=${channelId.toString()}`;
-        if(machineCode)
-            params += `&machineCode=${machineCode}`;
-            
-        return this.http.get(params, options)
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));
-    }    
-    
-    addPause(machinePause: MachinePauseDash[]): Observable<any> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });                
-        return this.http.post(environment.machinePauseDashAddURL, 
-            JSON.stringify(machinePause), { headers: headers })
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));            
-    }
-    
-    addProduct(machineProduct: MachineProductDash[]): Observable<any> {
-        let headers = new Headers({ 
-            'Content-Type': 'application/json',
-            'x-access-token': this.getToken()
-        });                
-        return this.http.post(environment.machineProductDashAddURL, 
-            JSON.stringify(machineProduct), { headers: headers })
-            .map(res => res.json())
-            .pipe(catchError(this.handleError));            
-    }    
+    return this.http
+      .get(params, options)
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
+
+  addPause(machinePause: MachinePauseDash[]): Observable<any> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    return this.http
+      .post(environment.machinePauseDashAddURL, JSON.stringify(machinePause), {
+        headers: headers,
+      })
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
+
+  addProduct(machineProduct: MachineProductDash[]): Observable<any> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'x-access-token': this.getToken(),
+    });
+    return this.http
+      .post(
+        environment.machineProductDashAddURL,
+        JSON.stringify(machineProduct),
+        { headers: headers }
+      )
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
 }
