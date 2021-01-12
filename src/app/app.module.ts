@@ -24,6 +24,7 @@ import { SponsorModule } from './components/sponsor/sponsor.module';
 import { AlertModule } from './components/alert/alert.module';
 import { ProductModule } from './components/product/product.module';
 import { GraphProductModule } from './components/graph.product/graph.product.module';
+import { MachineWeekDayReportModule } from './components/machine-week-day-report/machine.week.day.report.module';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { GraphProductModule } from './components/graph.product/graph.product.mod
     Routing,
     BrowserModule,
     BrowserAnimationsModule,
-    LoginModule, 
-    DashboardModule,   
+    LoginModule,
+    DashboardModule,
     ChannelModule,
     MachineModule,
     GraphPauseModule,
@@ -45,11 +46,12 @@ import { GraphProductModule } from './components/graph.product/graph.product.mod
     AlertModule,
     ProductModule,
     GraphProductModule,
+    MachineWeekDayReportModule,
     ToastModule.forRoot()
   ],
   providers: [
-    UserService, 
-    AuthGuard, 
+    UserService,
+    AuthGuard,
     AuthenticationService
   ],
   bootstrap: [AppComponent]

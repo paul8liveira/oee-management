@@ -13,11 +13,11 @@
               <dropdown-channel [listAll]="false"></dropdown-channel>
             </div>
             <div class="col">
-              <dropdown-machine></dropdown-machine> 
-            </div>                   
-          </div>                       
-        </div>   
-        
+              <dropdown-machine></dropdown-machine>
+            </div>
+          </div>
+        </div>
+
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
               Próxima atualização: {{timerStr}}
@@ -27,30 +27,30 @@
 
       <div class="row" style="margin-bottom:10px">
         <div class="col-12">
-          <app-machine-production-chart></app-machine-production-chart>    
-        </div> 
-      </div>      
+          <app-machine-production-chart></app-machine-production-chart>
+        </div>
+      </div>
 
       <div class="row" style="margin-bottom:10px" [hidden]="!showGauge">
         <div class="col-12">
           <gauge-shift-oee></gauge-shift-oee>
-        </div> 
-      </div>         
+        </div>
+      </div>
 
       <div class="row" style="margin-bottom:10px">
         <div class="col-12">
-          <app-machine-production-chart-pause-pareto></app-machine-production-chart-pause-pareto>    
-        </div> 
-      </div>        
+          <app-machine-production-chart-pause-pareto></app-machine-production-chart-pause-pareto>
+        </div>
+      </div>
 
       <div class="row">
           <div class="col-6">
-            <app-machine-production-nominal></app-machine-production-nominal>    
-          </div>            
+            <app-machine-production-nominal></app-machine-production-nominal>
+          </div>
           <div class="col-6">
-            <app-machine-production-pauses></app-machine-production-pauses>    
-          </div>     
-        </div>         
+            <app-machine-production-pauses></app-machine-production-pauses>
+          </div>
+        </div>
     </main>
   </div>
 </div>

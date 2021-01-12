@@ -1,0 +1,123 @@
+<app-nav componentName="Visão diária e semanal por máquina"></app-nav>
+<div class="container-fluid">
+  <div class="row">
+    <app-menu linkActive="machine-week-day-report"></app-menu>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 margin-top-60 px-4">
+      <div class="form-group">
+        <dropdown-channel [listAll]="false"></dropdown-channel>
+        <dropdown-machine></dropdown-machine>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Visão Diária</h5>
+
+              <div class="form-group">
+                <app-date></app-date>
+              </div>
+
+              <ng-container
+                *ngIf="tableDayData$ | async as tabledayData; else loadingTable"
+              >
+                <table class="table" *ngFor="let data of tabledayData">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Quantidade produzida</th>
+                      <td>{{ data.amount }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de disponibilidade</th>
+                      <td>{{ data.availability }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de desempenho</th>
+                      <td>{{ data.performance }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de qualidade</th>
+                      <td>{{ data.quality }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">OEE</th>
+                      <td>{{ data.oee }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Visão Semanal</h5>
+
+              <div class="form-group">
+                <app-dropdown-week></app-dropdown-week>
+              </div>
+
+              <ng-container
+                *ngIf="
+                  tableWeekData$ | async as tableWeekData;
+                  else loadingTable
+                "
+              >
+                <table class="table" *ngFor="let data of tableWeekData">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Quantidade produzida</th>
+                      <td>{{ data.amount }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de disponibilidade</th>
+                      <td>{{ data.availability }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de desempenho</th>
+                      <td>{{ data.performance }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Índice de qualidade</th>
+                      <td>{{ data.quality }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">OEE</th>
+                      <td>{{ data.oee }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 mb-3">
+        <div class="col">
+          <app-week-day-bar-chart
+            [chartId]="'chartDay'"
+            [title]="'10 principais paradas do dia'"
+            [data$]="chartDayData$"
+          ></app-week-day-bar-chart>
+        </div>
+        <div class="col">
+          <app-week-day-bar-chart
+            [chartId]="'chartWeek'"
+            [title]="'10 principais paradas da semana'"
+            [data$]="chartWeekData$"
+          ></app-week-day-bar-chart>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<ng-template #loadingTable>
+  <div class="alert alert-info text-center" role="alert">
+    Selecione um dia para carregar os dados
+  </div>
+</ng-template>

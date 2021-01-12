@@ -1,6 +1,6 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
   <div class="sidebar-fixed margin-top-55">
-    
+
     <!-- dashboard -->
     <ul class="nav flex-column">
       <li class="nav-item">
@@ -10,12 +10,24 @@
         </a>
       </li>
       <li class="nav-item">
-          <a [ngClass]="(linkActive=='machineproduction')?'nav-link active':'nav-link'"  [routerLink]="['/machineproduction']">            
+          <a [ngClass]="(linkActive=='machineproduction')?'nav-link active':'nav-link'"  [routerLink]="['/machineproduction']">
             <i-trending-up class="feather"></i-trending-up>
             Produção da máquina
           </a>
-        </li>      
-    </ul> 
+        </li>
+        <li class="nav-item">
+          <a [ngClass]="(linkActive=='machine-week-day-report')?'nav-link active':'nav-link'"  [routerLink]="['/machine-week-day-report']">
+            <i-trending-up class="feather"></i-trending-up>
+            Dia/semana da máquina
+          </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a [ngClass]="(linkActive=='section-week-day-report')?'nav-link active':'nav-link'"  [routerLink]="['/section-week-day-report']">
+            <i-trending-up class="feather"></i-trending-up>
+            Dia/semana do setor
+          </a>
+        </li> -->
+    </ul>
 
     <!-- canal -->
     <div [ngStyle]="{'display': currentUser.admin == 1 ? 'block' : 'none'}">
@@ -63,7 +75,7 @@
           <i-plus-circle class="feather"></i-plus-circle>
           Criar máquina
         </a>
-      </li>   
+      </li>
       <!-- <li class="nav-item">
         <a [ngClass]="(linkActive=='machinepause')?'nav-link active':'nav-link'" [routerLink]="['/machinepause']">
           <i-pause-circle class="feather"></i-pause-circle>
@@ -81,13 +93,13 @@
           <i-box class="feather"></i-box>
           Criar Produto
         </a>
-      </li>   
+      </li>
       <li class="nav-item">
         <a [ngClass]="(linkActive=='graphproduct')?'nav-link active':'nav-link'" [routerLink]="['/graphproduct']">
           <i-crosshair class="feather"></i-crosshair>
           Apontar produto no gráfico
         </a>
-      </li>                                    
+      </li>
     </ul>
     <!-- maquina -->
 
@@ -95,20 +107,20 @@
     <hr style="margin-top: 0.2rem" />
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted">
       <span>Alerta de pausa</span>
-    </h6>    
+    </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         <a [ngClass]="(linkActive=='sponsor')?'nav-link active':'nav-link'" [routerLink]="['/sponsor']">
           <i-user class="feather"></i-user>
           Responsável
         </a>
-      </li>   
+      </li>
       <li class="nav-item">
         <a [ngClass]="(linkActive=='alert')?'nav-link active':'nav-link'" [routerLink]="['/alert']">
           <i-alert-circle class="feather"></i-alert-circle>
           Configurar alertas
         </a>
-      </li>                           
+      </li>
     </ul>
     <!-- alertas de pausa -->
 
@@ -124,7 +136,7 @@
             <i-plus-circle class="feather"></i-plus-circle>
             Criar usuário
           </a>
-        </li> 
+        </li>
         <li class="nav-item">
           <a [ngClass]="(linkActive=='log')?'nav-link active':'nav-link'" href="#">
             <i-database class="feather"></i-database>
@@ -136,7 +148,7 @@
             <i-help-circle class="feather"></i-help-circle>
             Docs
           </a>
-        </li>                                 
+        </li>
       </ul>
     </div>
     <!-- administração -->

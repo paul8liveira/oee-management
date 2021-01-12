@@ -77,4 +77,7 @@ export const environment = {
   //machine product
   machineProductDashAddURL: `${serverURL}machineproductdash`,
   machineProductChartParetoURL: `${serverURL}machineproductdash/pareto`,
+  // machine week day report
+  machineWeekDayReportTableURL: `${serverURL}machine-week-day-report/table?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
+  machineWeekDayReportChartURL: `${serverURL}machine-week-day-report/chart?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
 };

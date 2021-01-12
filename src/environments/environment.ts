@@ -5,7 +5,7 @@
 
 const serverURL = 'http://localhost:3000/oee/api/';
 export const environment = {
-  production: false,  
+  production: false,
   //machine
   machineListURL: `${serverURL}:userId/:channelId/machine/list`,
   machineListAllURL: `${serverURL}machine/list`,
@@ -15,8 +15,8 @@ export const environment = {
   machineDeleteURL: `${serverURL}machine/delete`,
   machineConfigURL: `${serverURL}machineconfig/:machineCode`,
   machineConfigUpdateURL: `${serverURL}machineconfig`,
-  machineSQLUpdateURL: `${serverURL}machineconfig/sql`,  
-  machineComparativeURL: `${serverURL}machine/nominalcomparative`,  
+  machineSQLUpdateURL: `${serverURL}machineconfig/sql`,
+  machineComparativeURL: `${serverURL}machine/nominalcomparative`,
   //channel
   channelListURL: `${serverURL}:userId/channel`,
   channelConfigURL: `${serverURL}channelconfig/:channelId`,
@@ -26,8 +26,8 @@ export const environment = {
   channelAddURL: `${serverURL}channel`,
   channelAddMachineURL: `${serverURL}channel/machine`,
   channelUpdateURL: `${serverURL}channel/update`,
-  channelDeleteURL: `${serverURL}channel/delete`,      
-  channelDeleteMachineURL: `${serverURL}channel/delete/machine`,      
+  channelDeleteURL: `${serverURL}channel/delete`,
+  channelDeleteMachineURL: `${serverURL}channel/delete/machine`,
   //dash
   lastFeedURL: `${serverURL}feed/lastFeed`,
   chartURL: `${serverURL}feed/chart`,
@@ -38,31 +38,31 @@ export const environment = {
   productionURL2: `${serverURL}feed/production/v2`,
   productionOEEURL: `${serverURL}feed/oee`,
   //machine pause
-  machinePauseListURL: `${serverURL}machinepause/list`,  
+  machinePauseListURL: `${serverURL}machinepause/list`,
   machinePauseAddURL: `${serverURL}machinepause`,
   machinePauseUpdateURL: `${serverURL}machinepause/update`,
-  machinePauseDeleteURL: `${serverURL}machinepause/delete`, 
-  machinePauseDashAddURL: `${serverURL}machinepausedash`, 
-  machinePauseChartParetoURL: `${serverURL}machinepause/pareto`, 
+  machinePauseDeleteURL: `${serverURL}machinepause/delete`,
+  machinePauseDashAddURL: `${serverURL}machinepausedash`,
+  machinePauseChartParetoURL: `${serverURL}machinepause/pareto`,
   //user
   userAuthenticationURL: `${serverURL}auth`,
   userListURL: `${serverURL}user`,
   userAddURL: `${serverURL}user`,
   userUpdateURL: `${serverURL}user/update`,
-  userDeleteURL: `${serverURL}user/delete`,    
+  userDeleteURL: `${serverURL}user/delete`,
   userChangePassURL: `${serverURL}user/changePass`,
   userGetDataByTokenPassURL: `${serverURL}user/data`,
-  //userchannel    
-  userChannelAddURL: `${serverURL}userchannel`, 
+  //userchannel
+  userChannelAddURL: `${serverURL}userchannel`,
   userChannelDeleteURL: `${serverURL}userchannel/delete`,
   //docs
-  docsURL: serverURL,  
+  docsURL: serverURL,
   //pause reason
   pauseReasonDropdownURL: `${serverURL}pausereason/dropdown/:channelId/:machineCode`,
   //shift
   shiftDropdownURL: `${serverURL}shift/dropdown`,
   //machine shift
-  machineShiftListURL: `${serverURL}machineshift/list/:machineCode`,  
+  machineShiftListURL: `${serverURL}machineshift/list/:machineCode`,
   machineShiftURL : `${serverURL}machineshift`,
   machineDeleteShiftURL : `${serverURL}machineshift/delete`,
   machineShiftOEEURL: `${serverURL}machineshift/oee/:channelId/:machineCode/:dateIni/:dateFin`,
@@ -75,10 +75,13 @@ export const environment = {
   alertListURL: `${serverURL}alert/channel/:channelId`,
   alertAddURL: `${serverURL}alert`,
   alertUpdateURL: `${serverURL}alert/update`,
-  alertDeleteURL: `${serverURL}alert/delete`,  
+  alertDeleteURL: `${serverURL}alert/delete`,
   //product
   productURL: `${serverURL}product`,
   //machine product
-  machineProductDashAddURL: `${serverURL}machineproductdash`, 
+  machineProductDashAddURL: `${serverURL}machineproductdash`,
   machineProductChartParetoURL: `${serverURL}machineproductdash/pareto`,
+  // machine week day report
+  machineWeekDayReportTableURL: `${serverURL}machine-week-day-report/table?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
+  machineWeekDayReportChartURL: `${serverURL}machine-week-day-report/chart?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
 };
