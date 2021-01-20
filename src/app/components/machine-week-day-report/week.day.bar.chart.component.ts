@@ -68,9 +68,10 @@ export class WeekDayBarChartComponent
           lineAlpha: 0.2,
           type: "column",
           valueField: "pause",
+          labelText: "[[pause]]",
         },
       ],
-      categoryField: "pause_name",
+      categoryField: "pause_name_count",
       categoryAxis: {
         gridPosition: "start",
         axisAlpha: 0,

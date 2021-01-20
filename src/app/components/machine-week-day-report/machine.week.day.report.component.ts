@@ -54,6 +54,14 @@ export class MachineWeekDayReportComponent
     const subsMachine = this.filterService.onMachineUpdate$.subscribe(
       (machineCode) => {
         this.machineCode = machineCode;
+        if (this.date) {
+          this.fetchTableDayData();
+          this.fetchChartDayData();
+        }
+        if (this.weekNumber && this.yearNumber) {
+          this.fetchTableWeekData();
+          this.fetchChartWeekData();
+        }
       }
     );
     const subsDate = this.filterService.onDateUpdate$.subscribe((date) => {
