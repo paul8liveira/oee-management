@@ -93,7 +93,7 @@ export class MachineWeekDayReportComponent
       yearNumber: "",
       dateIni: this.formatDateTimeMySQL(this.date, true),
       dateEnd: this.formatDateTimeMySQL(
-        this.setTimeOnDatetime(this.date, "23:59"),
+        this.setTimeOnDatetime(this.date, this.getTurn().final),
         false
       ),
     };
@@ -108,7 +108,7 @@ export class MachineWeekDayReportComponent
       yearNumber: "",
       dateIni: this.formatDateTimeMySQL(this.date, true),
       dateEnd: this.formatDateTimeMySQL(
-        this.setTimeOnDatetime(this.date, "23:59"),
+        this.setTimeOnDatetime(this.date, this.getTurn().final),
         false
       ),
     };

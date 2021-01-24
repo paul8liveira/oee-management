@@ -220,6 +220,26 @@ export class DashboardService extends BaseService {
       .pipe(catchError(this.handleError));
   }
 
+  allMachinesProductionOEE(
+    dateFin: string,
+    channelId: number
+  ): Observable<any> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    let params = `${
+      environment.allProductionOEEURL
+    }?dateFin=${dateFin}&ch_id=${channelId.toString()}`;
+
+    return this.http
+      .get(params, options)
+      .map((res) => res.json())
+      .pipe(catchError(this.handleError));
+  }
+
   addPause(machinePause: MachinePauseDash[]): Observable<any> {
     let headers = new Headers({
       "Content-Type": "application/json",
@@ -235,8 +255,8 @@ export class DashboardService extends BaseService {
 
   addProduct(machineProduct: MachineProductDash[]): Observable<any> {
     const headers = new Headers({
-      'Content-Type': 'application/json',
-      'x-access-token': this.getToken(),
+      "Content-Type": "application/json",
+      "x-access-token": this.getToken(),
     });
     return this.http
       .post(

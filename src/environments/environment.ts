@@ -37,6 +37,7 @@ export const environment = {
   productionURL: `${serverURL}feed/production`,
   productionURL2: `${serverURL}feed/production/v2`,
   productionOEEURL: `${serverURL}feed/oee`,
+  allProductionOEEURL: `${serverURL}feed/all-channel-oee`,
   //machine pause
   machinePauseListURL: `${serverURL}machinepause/list`,
   machinePauseAddURL: `${serverURL}machinepause`,
