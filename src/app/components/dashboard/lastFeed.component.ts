@@ -362,12 +362,13 @@ export class LastFeedComponent
     )
       return;
 
+    const dateIni = this.formatDateTimeMySQL(this.dateRange[0], true);
     const dateFin = this.formatDateTimeMySQL(this.dateRange[1], false);
 
     this.productionOEE = [];
 
     this.dashboardService
-      .allMachinesProductionOEE(dateFin, this.channelId)
+      .productionOEE(dateIni, dateFin, this.channelId)
       .subscribe(
         (result) => this.productionOEE = result,
         (error) => {
