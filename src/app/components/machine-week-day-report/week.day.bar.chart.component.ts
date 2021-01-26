@@ -39,10 +39,8 @@ export class WeekDayBarChartComponent
       this.data$.subscribe((data) => {
         this.AmCharts.updateChart(this.chart, () => {
           this.chart.dataProvider.shift();
-          if (data.length > 0) {
             this.chart.dataProvider = data;
             this.chart.validateData();
-          }
         });
       });
     }

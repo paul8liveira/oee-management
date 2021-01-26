@@ -21,6 +21,10 @@
               <ng-container
                 *ngIf="tableDayData$ | async as tabledayData; else loadingTable"
               >
+                <div *ngIf="tabledayData.length === 0" class="alert alert-warning text-center" role="alert">
+                  Não encontrei dados para este dia selecionado
+                </div>
+
                 <table class="table" *ngFor="let data of tabledayData">
                   <tbody>
                     <tr>
@@ -65,6 +69,10 @@
                   else loadingTable
                 "
               >
+                <div *ngIf="tableWeekData.length === 0" class="alert alert-warning text-center" role="alert">
+                  Não encontrei dados para essa semana selecionada
+                </div>
+
                 <table class="table" *ngFor="let data of tableWeekData">
                   <tbody>
                     <tr>
