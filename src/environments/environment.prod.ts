@@ -81,4 +81,6 @@ export const environment = {
   // machine week day report
   machineWeekDayReportTableURL: `${serverURL}machine-week-day-report/table?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
   machineWeekDayReportChartURL: `${serverURL}machine-week-day-report/chart?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
+  //product
+  channelSectorURL: `${serverURL}channel-sector`,
 };

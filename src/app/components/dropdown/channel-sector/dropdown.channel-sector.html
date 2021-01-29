@@ -1,0 +1,10 @@
+<ng-select
+    [items]="items"
+    [searchable]="false"
+    bindLabel="name"
+    bindValue="id"
+    (add)="emitChangeValue($event)"
+    placeholder="Selecione um setor"
+    [clearable]="false"
+    [ngStyle]="{ 'width': '100%' }">
+</ng-select>
