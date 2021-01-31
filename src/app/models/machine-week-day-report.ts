@@ -1,6 +1,7 @@
 export interface WeekDayReportParams {
   channelId: number;
   machineCode: string;
+  sectorId: number;
   weekNumber: string;
   yearNumber: string;
   dateIni: string;

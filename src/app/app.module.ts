@@ -25,6 +25,7 @@ import { AlertModule } from './components/alert/alert.module';
 import { ProductModule } from './components/product/product.module';
 import { GraphProductModule } from './components/graph.product/graph.product.module';
 import { MachineWeekDayReportModule } from './components/machine-week-day-report/machine.week.day.report.module';
+import { SectorWeekDayReportModule } from './components/sector-week-day-report/sector.week.day.report.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MachineWeekDayReportModule } from './components/machine-week-day-report
     ProductModule,
     GraphProductModule,
     MachineWeekDayReportModule,
+    SectorWeekDayReportModule,
     ToastModule.forRoot()
   ],
   providers: [

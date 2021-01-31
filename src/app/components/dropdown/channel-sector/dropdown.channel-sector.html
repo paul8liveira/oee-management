@@ -1,10 +1,12 @@
-<ng-select
-    [items]="items"
-    [searchable]="false"
-    bindLabel="name"
-    bindValue="id"
-    (add)="emitChangeValue($event)"
-    placeholder="Selecione um setor"
-    [clearable]="false"
-    [ngStyle]="{ 'width': '100%' }">
-</ng-select>
+<div class="btn-group">
+  <ng-select
+      [items]="items"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Selecione um setor"
+      (add)="emitChangeValue($event)"
+      [(ngModel)]="selectedSector"
+      [clearable]="false"
+      [ngStyle]="{ 'width': '200px' }">
+  </ng-select>
+</div>

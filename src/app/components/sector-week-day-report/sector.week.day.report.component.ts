@@ -10,15 +10,15 @@ import { MachineWeekDayReportService } from "../../services/machine.week.day.rep
 import { BaseComponent } from "../base.component";
 
 @Component({
-  selector: "app-machine-week-day-report",
-  templateUrl: "./machine.week.day.report.component.html",
-  styleUrls: ["./machine.week.day.report.component.css"],
+  selector: "app-sector-week-day-report",
+  templateUrl: "./sector.week.day.report.component.html",
+  styleUrls: ["./sector.week.day.report.component.css"],
 })
-export class MachineWeekDayReportComponent
+export class SectorWeekDayReportComponent
   extends BaseComponent
   implements OnInit, OnDestroy {
   public channelId: number;
-  public machineCode: string;
+  public sectorId: number;
   public weekNumber: string;
   public yearNumber: string;
   public date: Date;
@@ -51,9 +51,9 @@ export class MachineWeekDayReportComponent
         this.channelId = channel.id;
       }
     );
-    const subsMachine = this.filterService.onMachineUpdate$.subscribe(
-      (machineCode) => {
-        this.machineCode = machineCode;
+    const subsSector = this.filterService.onSectorUpdate$.subscribe(
+      (sectorId) => {
+        this.sectorId = sectorId;
         if (this.date) {
           this.fetchTableDayData();
           this.fetchChartDayData();
@@ -80,7 +80,7 @@ export class MachineWeekDayReportComponent
       }
     });
     this.unsubscribe.push(subsChannel);
-    this.unsubscribe.push(subsMachine);
+    this.unsubscribe.push(subsSector);
     this.unsubscribe.push(subsDate);
     this.unsubscribe.push(subsWeek);
   }
@@ -88,14 +88,11 @@ export class MachineWeekDayReportComponent
   private fetchTableDayData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
-      machineCode: this.machineCode,
+      sectorId: this.sectorId,
       weekNumber: "",
       yearNumber: "",
       dateIni: this.formatDateTimeMySQL(this.date, true),
-      dateEnd: this.formatDateTimeMySQL(
-        this.setTimeOnDatetime(this.date, this.getTurn().final),
-        false
-      ),
+      dateEnd: "",
     };
     this.tableDayData$ = this.machineWeekDayReportService.table(params);
   }
@@ -103,14 +100,11 @@ export class MachineWeekDayReportComponent
   private fetchChartDayData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
-      machineCode: this.machineCode,
+      sectorId: this.sectorId,
       weekNumber: "",
       yearNumber: "",
       dateIni: this.formatDateTimeMySQL(this.date, true),
-      dateEnd: this.formatDateTimeMySQL(
-        this.setTimeOnDatetime(this.date, this.getTurn().final),
-        false
-      ),
+      dateEnd: "",
     };
     this.chartDayData$ = this.machineWeekDayReportService.chart(params);
   }
@@ -118,7 +112,7 @@ export class MachineWeekDayReportComponent
   private fetchTableWeekData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
-      machineCode: this.machineCode,
+      sectorId: this.sectorId,
       weekNumber: this.weekNumber,
       yearNumber: this.yearNumber,
       dateIni: "",
@@ -130,7 +124,7 @@ export class MachineWeekDayReportComponent
   private fetchChartWeekData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
-      machineCode: this.machineCode,
+      sectorId: this.sectorId,
       weekNumber: this.weekNumber,
       yearNumber: this.yearNumber,
       dateIni: "",

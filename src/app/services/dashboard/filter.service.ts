@@ -13,6 +13,7 @@ export class FilterService {
   public onDateRangeUpdate$: Subject<Date[]>;
   public onDateUpdate$: Subject<Date>;
   public onweekUpdate$: Subject<{ year: number; week: number }>;
+  public onSectorUpdate$: Subject<number>;
 
   constructor() {
     this.onDWMYUpdate$ = new Subject();
@@ -22,6 +23,7 @@ export class FilterService {
     this.onDateRangeUpdate$ = new Subject();
     this.onDateUpdate$ = new Subject();
     this.onweekUpdate$ = new Subject();
+    this.onSectorUpdate$ = new Subject();
   }
 
   public setDWMyFilter(filter: number): void {
@@ -54,5 +56,9 @@ export class FilterService {
 
   public setWeekFilter(year: number, week: number): void {
     this.onweekUpdate$.next({ year, week });
+  }
+
+  public setSectorFilter(sectorId: number): void {
+    this.onSectorUpdate$.next(sectorId);
   }
 }

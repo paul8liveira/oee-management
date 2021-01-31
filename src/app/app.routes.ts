@@ -12,6 +12,7 @@ import { AlertComponent } from "./components/alert/alert.component";
 import { ProductComponent } from "./components/product/product.component";
 import { GraphProductComponent } from "./components/graph.product/graph.product.component";
 import { MachineWeekDayReportComponent } from "./components/machine-week-day-report/machine.week.day.report.component";
+import { SectorWeekDayReportComponent } from "./components/sector-week-day-report/sector.week.day.report.component";
 
 const appRoutes: Routes = [
   {
@@ -76,6 +77,11 @@ const appRoutes: Routes = [
     path: "machine-week-day-report",
     canActivate: [AuthGuard],
     component: MachineWeekDayReportComponent,
+  },
+  {
+    path: "sector-week-day-report",
+    canActivate: [AuthGuard],
+    component: SectorWeekDayReportComponent,
   },
   {
     path: "**",
