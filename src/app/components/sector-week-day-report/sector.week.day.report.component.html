@@ -97,18 +97,18 @@
 
       <div class="row mt-3 mb-3">
         <div class="col">
-          <!-- <app-week-day-bar-chart
+          <app-sector-week-day-bar-chart
             [chartId]="'chartDay'"
-            [title]="'10 principais paradas do dia'"
-            [data$]="chartDayData$"
-          ></app-week-day-bar-chart> -->
+            [title]="'OEE do dia'"
+            [data$]="tableDayData$"
+          ></app-sector-week-day-bar-chart>
         </div>
         <div class="col">
-          <!-- <app-week-day-bar-chart
+          <app-sector-week-day-bar-chart
             [chartId]="'chartWeek'"
-            [title]="'10 principais paradas da semana'"
-            [data$]="chartWeekData$"
-          ></app-week-day-bar-chart> -->
+            [title]="'OEE da semana'"
+            [data$]="tableWeekData$"
+          ></app-sector-week-day-bar-chart>
         </div>
       </div>
 

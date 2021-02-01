@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import {
-  MachineWeekDayReporChartResponse,
   MachineWeekDayReporTableResponse,
   WeekDayReportParams,
 } from "../../models/machine-week-day-report";
@@ -24,10 +23,7 @@ export class SectorWeekDayReportComponent
   public date: Date;
 
   public tableDayData$: Observable<MachineWeekDayReporTableResponse[]>;
-  public chartDayData$: Observable<MachineWeekDayReporChartResponse[]>;
-
   public tableWeekData$: Observable<MachineWeekDayReporTableResponse[]>;
-  public chartWeekData$: Observable<MachineWeekDayReporChartResponse[]>;
 
   private unsubscribe: Subscription[] = [];
 
@@ -56,11 +52,9 @@ export class SectorWeekDayReportComponent
         this.sectorId = sectorId;
         if (this.date) {
           this.fetchTableDayData();
-          this.fetchChartDayData();
         }
         if (this.weekNumber && this.yearNumber) {
           this.fetchTableWeekData();
-          this.fetchChartWeekData();
         }
       }
     );
@@ -68,7 +62,6 @@ export class SectorWeekDayReportComponent
       this.date = date;
       if (this.date) {
         this.fetchTableDayData();
-        this.fetchChartDayData();
       }
     });
     const subsWeek = this.filterService.onweekUpdate$.subscribe((data) => {
@@ -76,7 +69,6 @@ export class SectorWeekDayReportComponent
       this.yearNumber = data.year.toString();
       if (this.weekNumber && this.yearNumber) {
         this.fetchTableWeekData();
-        this.fetchChartWeekData();
       }
     });
     this.unsubscribe.push(subsChannel);
@@ -97,18 +89,6 @@ export class SectorWeekDayReportComponent
     this.tableDayData$ = this.machineWeekDayReportService.table(params);
   }
 
-  private fetchChartDayData() {
-    const params: Partial<WeekDayReportParams> = {
-      channelId: this.channelId,
-      sectorId: this.sectorId,
-      weekNumber: "",
-      yearNumber: "",
-      dateIni: this.formatDateTimeMySQL(this.date, true),
-      dateEnd: "",
-    };
-    this.chartDayData$ = this.machineWeekDayReportService.chart(params);
-  }
-
   private fetchTableWeekData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
@@ -119,17 +99,5 @@ export class SectorWeekDayReportComponent
       dateEnd: "",
     };
     this.tableWeekData$ = this.machineWeekDayReportService.table(params);
-  }
-
-  private fetchChartWeekData() {
-    const params: Partial<WeekDayReportParams> = {
-      channelId: this.channelId,
-      sectorId: this.sectorId,
-      weekNumber: this.weekNumber,
-      yearNumber: this.yearNumber,
-      dateIni: "",
-      dateEnd: "",
-    };
-    this.chartWeekData$ = this.machineWeekDayReportService.chart(params);
   }
 }
