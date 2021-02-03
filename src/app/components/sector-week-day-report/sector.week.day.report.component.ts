@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import {
+  MachineWeekDayReporChartResponse,
   MachineWeekDayReporTableResponse,
   WeekDayReportParams,
 } from "../../models/machine-week-day-report";
@@ -22,8 +23,11 @@ export class SectorWeekDayReportComponent
   public yearNumber: string;
   public date: Date;
 
-  public tableDayData$: Observable<MachineWeekDayReporTableResponse[]>;
-  public tableWeekData$: Observable<MachineWeekDayReporTableResponse[]>;
+  public oeeDayData$: Observable<MachineWeekDayReporTableResponse[]>;
+  public oeeWeekData$: Observable<MachineWeekDayReporTableResponse[]>;
+
+  public pauseDayData$: Observable<MachineWeekDayReporChartResponse[]>;
+  public pauseWeekData$: Observable<MachineWeekDayReporChartResponse[]>;
 
   private unsubscribe: Subscription[] = [];
 
@@ -51,24 +55,28 @@ export class SectorWeekDayReportComponent
       (sectorId) => {
         this.sectorId = sectorId;
         if (this.date) {
-          this.fetchTableDayData();
+          this.fetchOeeDayData();
+          this.fetchPauseDayData();
         }
         if (this.weekNumber && this.yearNumber) {
-          this.fetchTableWeekData();
+          this.fetchOeeWeekData();
+          this.fetchPauseWeekData();
         }
       }
     );
     const subsDate = this.filterService.onDateUpdate$.subscribe((date) => {
       this.date = date;
       if (this.date) {
-        this.fetchTableDayData();
+        this.fetchOeeDayData();
+        this.fetchPauseDayData();
       }
     });
     const subsWeek = this.filterService.onweekUpdate$.subscribe((data) => {
       this.weekNumber = data.week.toString();
       this.yearNumber = data.year.toString();
       if (this.weekNumber && this.yearNumber) {
-        this.fetchTableWeekData();
+        this.fetchOeeWeekData();
+        this.fetchPauseWeekData();
       }
     });
     this.unsubscribe.push(subsChannel);
@@ -77,7 +85,7 @@ export class SectorWeekDayReportComponent
     this.unsubscribe.push(subsWeek);
   }
 
-  private fetchTableDayData() {
+  private fetchOeeDayData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
       sectorId: this.sectorId,
@@ -86,10 +94,10 @@ export class SectorWeekDayReportComponent
       dateIni: this.formatDateTimeMySQL(this.date, true),
       dateEnd: "",
     };
-    this.tableDayData$ = this.machineWeekDayReportService.table(params);
+    this.oeeDayData$ = this.machineWeekDayReportService.table(params);
   }
 
-  private fetchTableWeekData() {
+  private fetchOeeWeekData() {
     const params: Partial<WeekDayReportParams> = {
       channelId: this.channelId,
       sectorId: this.sectorId,
@@ -98,6 +106,33 @@ export class SectorWeekDayReportComponent
       dateIni: "",
       dateEnd: "",
     };
-    this.tableWeekData$ = this.machineWeekDayReportService.table(params);
+    this.oeeWeekData$ = this.machineWeekDayReportService.table(params);
+  }
+
+  private fetchPauseDayData() {
+    const params: Partial<WeekDayReportParams> = {
+      channelId: this.channelId,
+      sectorId: this.sectorId,
+      weekNumber: "",
+      yearNumber: "",
+      dateIni: this.formatDateTimeMySQL(this.date, true),
+      dateEnd: this.formatDateTimeMySQL(
+        this.setTimeOnDatetime(this.date, this.getTurn().final),
+        false
+      ),
+    };
+    this.pauseDayData$ = this.machineWeekDayReportService.chart(params);
+  }
+
+  private fetchPauseWeekData() {
+    const params: Partial<WeekDayReportParams> = {
+      channelId: this.channelId,
+      sectorId: this.sectorId,
+      weekNumber: this.weekNumber,
+      yearNumber: this.yearNumber,
+      dateIni: "",
+      dateEnd: "",
+    };
+    this.pauseWeekData$ = this.machineWeekDayReportService.chart(params);
   }
 }

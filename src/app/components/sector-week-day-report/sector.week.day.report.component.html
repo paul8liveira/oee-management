@@ -19,13 +19,13 @@
               </div>
 
               <ng-container
-                *ngIf="tableDayData$ | async as tabledayData; else loadingTable"
+                *ngIf="oeeDayData$ | async as oeeDayData; else loadingTable"
               >
-                <div *ngIf="tabledayData.length === 0" class="alert alert-warning text-center" role="alert">
+                <div *ngIf="oeeDayData.length === 0" class="alert alert-warning text-center" role="alert">
                   Não encontrei dados para este dia selecionado
                 </div>
 
-                <table class="table" *ngIf="tabledayData.length > 0">
+                <table class="table" *ngIf="oeeDayData.length > 0">
                   <tbody>
                     <tr>
                       <th scope="row">Máquina</th>
@@ -35,7 +35,7 @@
                       <th scope="row">Qualidade</th>
                       <th scope="row">OEE</th>
                     </tr>
-                    <tr *ngFor="let data of tabledayData">
+                    <tr *ngFor="let data of oeeDayData">
                       <td>{{ data.machine_code }}</td>
                       <td>{{ data.production }}</td>
                       <td>{{ data.availability }}%</td>
@@ -61,15 +61,15 @@
 
               <ng-container
                 *ngIf="
-                  tableWeekData$ | async as tableWeekData;
+                  oeeWeekData$ | async as oeeWeekData;
                   else loadingTable
                 "
               >
-                <div *ngIf="tableWeekData.length === 0" class="alert alert-warning text-center" role="alert">
+                <div *ngIf="oeeWeekData.length === 0" class="alert alert-warning text-center" role="alert">
                   Não encontrei dados para essa semana selecionada
                 </div>
 
-                <table class="table" *ngIf="tableWeekData.length > 0">
+                <table class="table" *ngIf="oeeWeekData.length > 0">
                   <tbody>
                     <tr>
                       <th scope="row">Máquina</th>
@@ -79,8 +79,8 @@
                       <th scope="row">Qualidade</th>
                       <th scope="row">OEE</th>
                     </tr>
-                    <tr *ngFor="let data of tableWeekData">
-                      <td>{{ data.machine_code }}</td>
+                    <tr *ngFor="let data of oeeWeekData">
+                      <td>{{ data.machine_name }}</td>
                       <td>{{ data.amount }}</td>
                       <td>{{ data.availability }}%</td>
                       <td>{{ data.performance }}%</td>
@@ -100,15 +100,32 @@
           <app-sector-week-day-bar-chart
             [chartId]="'chartDay'"
             [title]="'OEE do dia'"
-            [data$]="tableDayData$"
+            [data$]="oeeDayData$"
           ></app-sector-week-day-bar-chart>
         </div>
         <div class="col">
           <app-sector-week-day-bar-chart
             [chartId]="'chartWeek'"
             [title]="'OEE da semana'"
-            [data$]="tableWeekData$"
+            [data$]="oeeWeekData$"
           ></app-sector-week-day-bar-chart>
+        </div>
+      </div>
+
+      <div class="row mt-3 mb-3">
+        <div class="col">
+          <app-week-day-bar-chart
+            [chartId]="'chartPauseDay'"
+            [title]="'10 principais paradas do dia'"
+            [data$]="pauseDayData$"
+          ></app-week-day-bar-chart>
+        </div>
+        <div class="col">
+          <app-week-day-bar-chart
+            [chartId]="'chartPauseWeek'"
+            [title]="'10 principais paradas da semana'"
+            [data$]="pauseWeekData$"
+          ></app-week-day-bar-chart>
         </div>
       </div>
 

@@ -83,7 +83,7 @@ export const environment = {
   machineWeekDayReportChartURL: `${serverURL}machine-week-day-report/chart?channelId=:channelId&machineCode=:machineCode&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
    // sector week day report
    sectorWeekDayReportTableURL: `${serverURL}sector-week-day-report/table?channelId=:channelId&sectorId=:sectorId&weekNumber=:weekNumber&yearNumber=:yearNumber&date=:date`,
-   sectorWeekDayReportChartURL: `${serverURL}sector-week-day-report/chart?channelId=:channelId&sectorId=:sectorId&weekNumber=:weekNumber&yearNumber=:yearNumber&date=:date`,
+   sectorWeekDayReportChartURL: `${serverURL}sector-week-day-report/chart?channelId=:channelId&sectorId=:sectorId&weekNumber=:weekNumber&yearNumber=:yearNumber&dateIni=:dateIni&dateEnd=:dateEnd`,
   //product
   channelSectorURL: `${serverURL}channel-sector`,
 };

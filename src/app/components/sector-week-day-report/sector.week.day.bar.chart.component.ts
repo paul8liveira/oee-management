@@ -73,7 +73,7 @@ export class SectorWeekDayBarChartComponent
           labelText: "[[oee]]%",
         },
       ],
-      categoryField: "machine_code",
+      categoryField: "machine_name",
       categoryAxis: {
         gridPosition: "start",
         axisAlpha: 0,

@@ -10,6 +10,7 @@ import { DateModule } from "../dropdown/date/date.module";
 import { DropdownWeekModule } from "../dropdown/week/dropdown.week.module";
 import { DropdownChannelSectorModule } from "../dropdown/channel-sector/dropdown.channel-sector.module";
 import { SectorWeekDayBarChartComponent } from "./sector.week.day.bar.chart.component";
+import { MachineWeekDayReportModule } from "../machine-week-day-report/machine.week.day.report.module";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SectorWeekDayBarChartComponent } from "./sector.week.day.bar.chart.comp
     DropdownMachineModule,
     DateModule,
     DropdownWeekModule,
-    DropdownChannelSectorModule
+    DropdownChannelSectorModule,
+    MachineWeekDayReportModule
   ],
   declarations: [SectorWeekDayReportComponent, SectorWeekDayBarChartComponent],
   exports: [SectorWeekDayReportComponent, SectorWeekDayBarChartComponent],
