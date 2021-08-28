@@ -1,12 +1,12 @@
 <input
-    class="form-control" 
+    class="form-control"
     placeholder="Selecione as datas"
-    [style.width]="'230px'"
+    [style.width]="'265px'"
     [style.height]="'36px'"
     [style.font-size]="'.875rem'"
     [(ngModel)]="dateTimeRange"
     [selectMode]="'range'"
-    [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" 
+    [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
     (dateTimeChange)="changeDateRange($event)"
     #dateTimeRangeValidation="ngModel"
 />
