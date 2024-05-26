@@ -37,7 +37,7 @@
     "ng-pick-datetime": "^5.2.6",
     "ng2-toastr": "^4.1.2",
     "ngx-bootstrap": "^2.0.5",
-    "npm": "^6.7.0",
+    "npm": "^7.21.0",
     "popper.js": "^1.14.1",
     "rxjs": "^5.5.11",
     "zone.js": "^0.8.26"
